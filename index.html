@@ -58,21 +58,23 @@
   .tbd { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: .08em; }
 
   /* ── sections ───────────────────────────────────────── */
-  section { padding-block: 60px 0; }
+  section { padding-block: 96px 0; }
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
   h2::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 3px; background: var(--magma); margin: 14px 0 22px; }
   h2 .sub { font-weight: 500; color: var(--muted); font-size: .6em; margin-left: .35em; }
   p { margin: 0 0 18px; }
   .abstract p { font-size: 20px; line-height: 1.7; }
   .points { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  .points li { position: relative; padding-left: 30px; font-size: 19px; line-height: 1.65; }
+  .points li { position: relative; padding-left: 32px; font-size: 19.5px; line-height: 1.65; }
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
   .lead { color: var(--muted); font-size: 17.5px; margin: 0 0 16px; }
 
   /* ── media ──────────────────────────────────────────── */
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
-  .hero video { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
+  .box { width: 100%; aspect-ratio: 2.28 / 1; background: #fff; border-radius: 8px; border: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; }
+  .box video { border: 0; border-radius: 0; }
+  .hero .box { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
 
   /* ── legend ─────────────────────────────────────────── */
   .key { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15.5px; color: var(--muted); margin: 0 0 22px; }
@@ -134,27 +136,27 @@
 
 <section class="wide hero">
   <h2>What RECAST Does <span class="sub">Teaser</span></h2>
-  <video id="hero" autoplay muted loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
+  <div class="box"><video id="hero" autoplay muted loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
-  </video>
+  </video></div>
 </section>
 
-<section class="text abstract">
+<section class="wide abstract">
   <h2>Abstract</h2>
   <ul class="points">
-    <li><b>Semantics that reach the action.</b> Robots that share human spaces must read complex scenes and follow the constraints their users state. Policies learned from demonstrations offer no channel for such a constraint, and VLM-based approaches pass the VLM's reasoning to motion either ungrounded or reduced to a single cue.</li>
-    <li><b>Actionable Cost map (AC map).</b> RECAST recasts what a VLM reads from the scene into one compact cost map that bears directly on the action. Given the frame, the goal, and any constraint the user states, the VLM decomposes the scene into four judgments: ground safety, collision-risky objects, goal direction, and passable gaps.</li>
-    <li><b>Expert grounding, refreshed every frame.</b> Expert vision models ground each judgment to where it holds in the frame, so the reasoning and the region it applies to sit on the same map. Between VLM answers, the map is rebuilt on every current frame without a new VLM call, so it keeps up with a changing scene.</li>
-    <li><b>Navigation on the map.</b> The same map conditions the trajectory decoder and scores every candidate it proposes, so the VLM's reasoning and the robot's motion cannot misalign. What the VLM judges shapes the map, and the map shapes the path, without retraining.</li>
+    <li><b>Semantics that reach the action.</b> Robot navigation that is safe and robust across diverse environments requires a high-level understanding of complex surroundings and the ability to carry it through into stable motion. Learning-based models trained at scale break down outside their training distribution, and VLM-based approaches fail to elicit the VLM's spatial reasoning and align the action with it, so neither turns high-level semantics into accurate action.</li>
+    <li><b>Actionable Cost map (AC map).</b> RECAST recasts the knowledge of a VLM into an Actionable Cost map that bears directly on the action. Given the frame, the goal, and any constraint the user states, the VLM decomposes the scene into four judgments of traversability, caution, goal direction, and passable gaps.</li>
+    <li><b>Expert grounding, refreshed every frame.</b> Expert vision models ground each judgment into geometry, putting both the reasoning and where it applies on one cost map. Rebuilt on every current frame between VLM answers, the map keeps up with a changing scene without a new VLM call.</li>
+    <li><b>Navigation on the map.</b> The action is chosen on that same map, which conditions the decoders and scores every trajectory they propose, so the reasoning and the motion cannot misalign. What the VLM judges shapes the map, and the map shapes the path, without retraining.</li>
   </ul>
 </section>
 
 <section class="wide">
   <h2>RECAST Pipeline</h2>
   <p class="lead">The VLM recasts the pivot frame (red) every 1.5 s. The current AC map, the candidates, and their scores are rebuilt on the live frame (green) every 0.36 s. Rejected candidates are red, the executed one green.</p>
-  <video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
+  <div class="box"><video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
     <source src="static/videos/pipeline.mp4" type="video/mp4">
-  </video>
+  </video></div>
 </section>
 
 <section class="wide" id="experiments">
@@ -172,7 +174,7 @@
   <div class="strip" id="strip" role="list"></div>
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span><span class="instr" id="nowInstr"></span></div>
-    <video id="player" controls playsinline preload="metadata"></video>
+    <div class="box"><video id="player" controls playsinline preload="metadata"></video></div>
   </div>
 </section>
 
