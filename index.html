@@ -64,6 +64,10 @@
   h2 .sub { font-weight: 500; color: var(--muted); font-size: .6em; margin-left: .35em; }
   p { margin: 0 0 18px; }
   .abstract p { font-size: 20px; line-height: 1.7; }
+  .points { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .points li { position: relative; padding-left: 30px; font-size: 19px; line-height: 1.65; }
+  .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
+  .points b { font-weight: 700; }
   .lead { color: var(--muted); font-size: 17.5px; margin: 0 0 16px; }
 
   /* ── media ──────────────────────────────────────────── */
@@ -137,8 +141,12 @@
 
 <section class="text abstract">
   <h2>Abstract</h2>
-  <p>RECAST recasts what a VLM knows into an <b>Actionable Cost map (AC map)</b>. From the frame, the goal, and any constraint the user states, the VLM makes four judgments: traversability, caution, goal direction, and passable gaps. Expert vision models ground them into geometry on one cost map. The decoder is conditioned on that map and every candidate trajectory is scored on it, so reasoning and motion cannot misalign.</p>
-  <p>On a real quadruped, RECAST beats the strongest baseline by 31.4 success points with the lowest collision rate of any method, without retraining.</p>
+  <ul class="points">
+    <li><b>Semantics that reach the action.</b> Robots that share human spaces must read complex scenes and follow the constraints their users state. Policies learned from demonstrations offer no channel for such a constraint, and VLM-based approaches pass the VLM's reasoning to motion either ungrounded or reduced to a single cue.</li>
+    <li><b>Actionable Cost map (AC map).</b> RECAST recasts what a VLM reads from the scene into one compact cost map that bears directly on the action. Given the frame, the goal, and any constraint the user states, the VLM decomposes the scene into four judgments: ground safety, collision-risky objects, goal direction, and passable gaps.</li>
+    <li><b>Expert grounding, refreshed every frame.</b> Expert vision models ground each judgment to where it holds in the frame, so the reasoning and the region it applies to sit on the same map. Between VLM answers, the map is rebuilt on every current frame without a new VLM call, so it keeps up with a changing scene.</li>
+    <li><b>Navigation on the map.</b> The same map conditions the trajectory decoder and scores every candidate it proposes, so the VLM's reasoning and the robot's motion cannot misalign. What the VLM judges shapes the map, and the map shapes the path, without retraining.</li>
+  </ul>
 </section>
 
 <section class="wide">
