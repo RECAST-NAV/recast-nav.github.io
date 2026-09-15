@@ -70,7 +70,7 @@
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
   .lead { color: var(--ink); font-size: 20px; line-height: 1.6; margin: 0 0 18px; }
-  .lead.teaser { color: #3b0f70; font-size: 21px; font-weight: 500; }
+  .lead.teaser { color: #000; font-size: 21px; font-weight: 500; }
 
   /* ── media ──────────────────────────────────────────── */
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
@@ -142,14 +142,14 @@
 
 <section class="wide hero">
   <h2><span class="t">What RECAST Does</span> <span class="sub">1× speed</span></h2>
-  <p class="lead teaser">Told to go behind the traffic cones and never step onto the bumpy grass, the quadruped yields to the pedestrian, threads behind the cones, and keeps to the pavement, all on the AC map recast from the VLM's judgments.</p>
+  <p class="lead teaser">RECAST turns what a vision-language model reads from the scene, and what the user asks of the robot, into one cost map that the robot navigates on directly.</p>
   <div class="box"><video id="hero" autoplay loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
   </video></div>
 </section>
 
 <section class="wide abstract">
-  <h2><span class="t">Abstract</span></h2>
+  <h2><span class="t">TL;DR</span></h2>
   <ul class="points">
     <li><b>Why.</b> Robots in human spaces must read a complex scene and follow what their users ask. Policies learned from demonstrations cannot take such a request, and VLM-based planners rarely turn their reasoning into grounded motion.</li>
     <li><b>Actionable Cost map (AC map).</b> RECAST turns a VLM's reading of the scene into one cost map the robot acts on directly. From the frame, the goal, and the user's instruction, the VLM judges where the ground is safe to walk, which objects risk a collision, which way leads to the goal, and which gaps are passable.</li>
@@ -184,13 +184,13 @@
 (function () {
   var EP = [
     { id: "outdoor_grass_allow",   tag: "Night",  kw: 'Night sidewalk · <span class="c-yellow">grass allowed if blocked</span>' },
+    { id: "outdoor_grass_forbid",  tag: "Night",  kw: 'Night sidewalk · <span class="c-red">stay off the grass</span>' },
     { id: "outdoor_plaza_night1",  tag: "Night",  kw: "Night plaza I · between the cornerstones" },
     { id: "outdoor_plaza_night2",  tag: "Night",  kw: "Night plaza II · between the cornerstones" },
     { id: "outdoor_plaza_day",     tag: "Day",    kw: "Day plaza · cornerstones and pedestrians" },
     { id: "indoor_floor",          tag: "Indoor", kw: "Lobby · reach the left door" },
     { id: "indoor_corner",         tag: "Indoor", kw: "Lounge · turn left to the red chair" },
-    { id: "indoor_corridor",       tag: "Indoor", kw: "Corridor · turn right to the elevator" },
-    { id: "outdoor_grass_forbid",  tag: "Night",  kw: 'Night sidewalk · <span class="c-red">stay off the grass</span>' }
+    { id: "indoor_corridor",       tag: "Indoor", kw: "Corridor · turn right to the elevator" }
   ];
   var strip = document.getElementById("strip"), player = document.getElementById("player");
   var nowName = document.getElementById("nowName");
