@@ -161,15 +161,18 @@
 
 
 
+
+
   /* ── ablation ─────────────────────────────────────── */
-  .abl { display: grid; grid-template-columns: 250px 1fr; gap: 26px; align-items: stretch; }
+  .abl-wide { max-width: 1900px; }
+  .abl { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: stretch; }
   .abl-list { display: flex; flex-direction: column; gap: 14px; height: 0; min-height: 100%; }   /* 목록 높이 = 스테이지 높이 */
   .abl-item { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; border: 2px solid var(--line); border-radius: 12px; background: #fff; padding: 8px; cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .18s, transform .18s, box-shadow .18s; }
   .abl-item img { width: 100%; flex: 1 1 0; min-height: 0; object-fit: cover; border-radius: 6px; display: block; }
-  .abl-item .cap { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 15.5px; font-weight: 700; line-height: 1.25; min-width: 0; flex: none; }
+  .abl-item .cap { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 17px; font-weight: 700; line-height: 1.25; min-width: 0; flex: none; }
   .abl-item .cap span { min-width: 0; overflow-wrap: anywhere; }
   .abl-lead { color: #000; }
-  .abl-item .cap img { width: 30px; height: 30px; flex: none; border-radius: 0; min-height: 30px; }
+  .abl-item .cap img { width: 36px; height: 36px; flex: none; border-radius: 0; min-height: 36px; }
   .abl-item .cap b { font-weight: 600; }
   .abl-item:hover { border-color: var(--accent); transform: translateY(-2px); }
   .abl-item.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,55,121,.18); }
@@ -250,7 +253,9 @@
 
 
 
-<section class="wide" id="ablation">
+
+
+<section class="wide abl-wide" id="ablation">
   <h2><span class="t">Ablation</span></h2>
   <p class="lead abl-lead">RECAST folds a human instruction straight into how it reads the scene and how it acts: the same frame yields a different Cost map for each instruction, and the path, or the decision to stop, changes with it at once, without retraining.</p>
   <div class="abl">
@@ -361,7 +366,7 @@
         <div class="stepwrap" data-step="15" style="display:contents"><div class="el lab" style="left:92.724%;top:90.675%;width:8.417%;height:7.238%;font-size:9.9px">Traversable</div></div>
         <div class="stepwrap" data-step="16" style="display:contents"><svg class="el" viewBox="2200000 3000000 11030000 2820000" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 12133209 5442415 C 12100461 5367378 12067714 5292341 12036972 5193785 C 12006229 5095229 11977491 4973154 11948754 4851079" stroke="#fff" stroke-width="57150"/><path d="M 12107653 5440087 C 12080289 5383726 12052925 5327365 12071738 5228103 C 12090551 5128840 12155540 4986676 12220530 4844513" stroke="#fff" stroke-width="57150"/><path d="M 12096559 5440368 C 12139661 5360392 12182763 5280416 12276180 5211417 C 12369597 5142418 12513330 5084397 12657063 5026375" stroke="#fff" stroke-width="57150"/><path d="M 12078748 5442904 C 12037381 5364437 11996014 5285969 11921989 5215195 C 11847964 5144421 11741281 5081339 11634598 5018258" stroke="#fff" stroke-width="57150"/><path d="M 12015187 5458135 C 11966198 5357997 11917209 5257861 11908991 5149041 C 11900774 5040221 11933328 4922718 11965882 4805216" stroke="#fff" stroke-width="57150"/><path d="M 12079070 5437824 C 12105507 5336653 12131944 5235483 12189243 5148198 C 12246542 5060914 12334703 4987516 12422864 4914118" stroke="#fff" stroke-width="57150"/></svg></div>
         <div class="stepwrap" data-step="17" style="display:contents"><span class="el gtmark" data-half="B" style="left:0;top:0;width:0;height:0"></span></div>
-        <div class="stepwrap" data-step="17" style="display:contents"><div class="el bub fit stopbox" style="left:79.862%;top:26.579%;width:10.153%;height:15.248%;background:#C00000;color:#fff;font-size:11.3px;align-items:flex-end;padding-bottom:.4em;white-space:nowrap">Insufficient actionable space</div></div>
+        <div class="stepwrap" data-step="17" style="display:contents"><div class="el bub stopbox" style="left:79.862%;top:26.579%;width:11.981%;height:22.695%;background:#C00000;color:#fff;font-size:12.7px;line-height:1.12;align-items:flex-end;padding-bottom:.35em;font-weight:700;white-space:nowrap">Insufficient&nbsp;actionable<br>space</div></div>
         <div class="stepwrap" data-step="17" style="display:contents"><img class="el" src="static/ablation/img491.png" alt="" style="left:81.183%;top:25.809%;width:3.594%;height:14.058%"></div>
         <div class="stepwrap" data-step="17" style="display:contents"><div class="el lab" style="left:84.286%;top:28.941%;width:4.449%;height:9.386%;color:#fff;font-weight:700;font-size:15.9px">Stop</div></div>
       </div>
