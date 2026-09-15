@@ -7,7 +7,9 @@
 <title>RECAST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
 <style>
   :root {
     --ink: #1b1a24;
@@ -15,14 +17,16 @@
     --line: #dedbe6;
     --ground: #ffffff;
     --panel: #f6f5f9;
-    --m0: #000004; --m1: #3b0f70; --m2: #8c2981; --m3: #de4968; --m4: #fe9f6d; --m5: #fcfdbf;
+    --m0: #000004; --m1: #51127C; --m2: #B73779; --m3: #FCFDBF;
+    --magma: linear-gradient(90deg, var(--m0) 0%, var(--m1) 33%, var(--m2) 66%, var(--m3) 100%);
+    --accent: #B73779;
     --sel: #00b050;
     --la: #ffd653; --lb: #ff9797; --lc: #a6caec; --ld: #74de83;
     --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
-  html { color-scheme: light; }
+  html { color-scheme: light; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ground); color: var(--ink);
     font-family: var(--sans); font-size: 17px; line-height: 1.6;
@@ -30,82 +34,131 @@
     -webkit-font-smoothing: antialiased;
   }
   .wide { max-width: 1500px; margin-inline: auto; }
-  .text { max-width: 780px; margin-inline: auto; }
-  header { padding-block: 64px 28px; text-align: center; }
-  header .kicker {
-    font-family: var(--mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); margin: 0 0 18px;
-  }
+  .text { max-width: 800px; margin-inline: auto; }
+
+  /* ── header ─────────────────────────────────────────── */
+  header { padding-block: 60px 26px; text-align: center; }
   header h1 {
-    font-weight: 600; font-size: clamp(26px, 3.2vw, 44px); line-height: 1.18; margin: 0 auto;
-    max-width: 22ch; text-wrap: balance; letter-spacing: -0.01em;
+    font-weight: 700; font-size: clamp(24px, 3.1vw, 42px); line-height: 1.22; margin: 0 auto;
+    letter-spacing: -0.012em; max-width: 30ch; text-wrap: balance;
   }
-  header h1 .name { letter-spacing: .04em; }
-  header .meta { margin: 22px 0 0; color: var(--muted); font-size: 16px; }
-  .rule {
-    height: 6px; width: 220px; margin: 28px auto 0; border-radius: 3px;
-    background: linear-gradient(90deg, var(--m0), var(--m1), var(--m2), var(--m3), var(--m4), var(--m5));
+  header h1 .grad {
+    letter-spacing: .05em; font-weight: 700;
+    background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+    padding-right: .02em;
   }
-  figure { margin: 0; }
-  figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
-  figcaption { color: var(--muted); font-size: 15px; line-height: 1.55; margin-top: 12px; }
-  figcaption b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 880px) { header h1 .br { display: none; } }
+  header .authors { margin: 20px 0 0; font-size: 19px; font-weight: 500; }
+  header .venue { margin: 4px 0 0; color: var(--muted); font-size: 15.5px; }
+  .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: .55em;
+    padding: 11px 22px 11px 18px; border-radius: 999px;
+    background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 16px;
+    border: 2px solid var(--ink); transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn i { font-size: 1.25em; line-height: 1; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(27,26,36,.22); }
+  .btn.alt { background: #fff; color: var(--ink); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  /* ── media ──────────────────────────────────────────── */
+  video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
+  .hero { padding-block: 22px 8px; }
+  .hero video { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
+  .hero .cap { color: var(--muted); font-size: 15px; margin: 12px 0 0; text-align: center; }
+  .hero .cap .instr { font-family: var(--mono); font-size: 14px; }
+
   section { padding-block: 44px 8px; }
   h2 {
     font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
     color: var(--muted); margin: 0 0 22px; display: flex; align-items: center; gap: 14px;
   }
   h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-  h3 { font-size: 20px; font-weight: 600; margin: 34px 0 8px; letter-spacing: -0.005em; }
   p { margin: 0 0 16px; }
-  .abstract p { font-size: 18px; line-height: 1.68; }
-  video { width: 100%; height: auto; display: block; background: #fff; border-radius: 6px; border: 1px solid var(--line); }
-  .clip { margin-top: 14px; }
-  .clip .head {
-    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 0 0 8px;
-  }
-  .clip .scene { font-weight: 600; font-size: 17px; }
-  .clip .instr { font-family: var(--mono); font-size: 14.5px; color: var(--muted); }
-  .clip .instr::before { content: "“"; } .clip .instr::after { content: "”"; }
+  .abstract p { font-size: 17.5px; line-height: 1.68; }
+  .lead { color: var(--muted); font-size: 16px; margin: 0 0 18px; }
+  .lead b { color: var(--ink); font-weight: 600; }
+
+  /* ── layer key ───────────────────────────────────────── */
   .key {
-    background: var(--panel); border-radius: 8px; padding: 18px 22px; font-size: 15.5px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 28px; margin: 6px 0 26px;
+    background: var(--panel); border-radius: 10px; padding: 16px 22px; font-size: 15px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 26px; margin: 0 0 26px;
   }
   .key div { display: flex; align-items: flex-start; gap: 10px; }
-  .sw { flex: none; width: 14px; height: 14px; border-radius: 3px; margin-top: 7px; border: 1px solid rgba(0,0,0,.12); }
-  .sw.mag { width: 40px; background: linear-gradient(90deg, var(--m0), var(--m1), var(--m2), var(--m3), var(--m4), var(--m5)); }
-  .sw.sel { background: var(--sel); }
+  .sw { flex: none; width: 14px; height: 14px; border-radius: 3px; margin-top: 6px; border: 1px solid rgba(0,0,0,.12); }
+  .sw.mag { width: 40px; background: var(--magma); }
   .sw.cand { background: #fff; border-color: #999; }
-  .lead { color: var(--muted); font-size: 16px; margin-bottom: 18px; }
-  .pair-note { font-size: 15.5px; color: var(--muted); margin: -2px 0 12px; }
+  .sw.sel { background: var(--sel); }
+
+  /* ── episode gallery ────────────────────────────────── */
+  .step {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 1.5em; height: 1.5em; border-radius: 50%; margin-right: .5em;
+    background: var(--magma); color: #fff; font-weight: 700; font-size: .85em;
+  }
+  .strip {
+    display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 14px; scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+  }
+  .card {
+    flex: 0 0 auto; width: 250px; scroll-snap-align: start;
+    border: 2px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden;
+    cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit;
+    transition: border-color .18s, transform .18s, box-shadow .18s;
+  }
+  .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .card .body { padding: 10px 12px 12px; }
+  .card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+  .tag {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 999px; background: var(--panel); color: var(--muted);
+  }
+  .tag.night { background: #1b1a24; color: #fff; }
+  .tag.day { background: #ffd653; color: #1b1a24; }
+  .tag.indoor { background: #e8eef7; color: #2b4a7a; }
+  .tag.outdoor { background: #e3f4e6; color: #1f6b34; }
+  .card .kw { font-weight: 600; font-size: 15.5px; line-height: 1.3; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,55,121,.18); }
+  .card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .player { margin-top: 14px; }
+  .player .now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin: 0 0 10px; }
+  .player .now .name { font-weight: 600; font-size: 18px; }
+  .player .now .instr { font-family: var(--mono); font-size: 14.5px; color: var(--muted); }
+  .player .now .instr::before { content: "“"; } .player .now .instr::after { content: "”"; }
+
   footer { margin-top: 70px; color: var(--muted); font-size: 14px; text-align: center; }
   footer p { margin: 4px 0; }
-  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .card { transition: none; } }
   @media (max-width: 700px) {
     body { font-size: 16px; }
     header { padding-block: 40px 20px; }
     .key { padding: 14px 16px; }
+    .card { width: 210px; }
   }
 </style>
 </head>
 <body>
 
 <header class="wide">
-  <p class="kicker">Anonymous project page · under review</p>
-  <h1><span class="name">RECAST</span>: Recasting Vision-Language Semantics into an Actionable Cost Map for Robot Navigation</h1>
-  <p class="meta">Anonymous authors. This page accompanies a double-blind submission; no author or affiliation information is provided.</p>
-  <div class="rule" aria-hidden="true"></div>
+  <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<br class="br">into an Actionable Cost Map for Robot Navigation</h1>
+  <p class="authors">Anonymous authors</p>
+  <p class="venue">Under double-blind review</p>
+  <nav class="links" aria-label="Links">
+    <a class="btn" href="https://recast-nav.github.io/"><i class="fa-brands fa-github" aria-hidden="true"></i>Code</a>
+    <a class="btn alt" href="https://recast-nav.github.io/"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</a>
+  </nav>
 </header>
 
 <main>
 
-<section class="wide">
-  <figure>
-    <img src="static/teaser.jpg" alt="Overview of RECAST: front view and instruction, four judgments, the Actionable Cost map with scored trajectories, and three real-robot runs.">
-    <figcaption class="text">
-      <b>Overview of RECAST.</b> Given the robot's front view and the user's instruction, a VLM recasts what it reads from the scene into the four judgments the robot needs: how safe the ground is, which objects risk a collision, which way leads to the goal, and which gaps are passable. Grounded to where each holds in the frame, they stack into the Actionable Cost map (AC map), on which every candidate trajectory (gray) is scored and the best one (green) is executed. Below, the quadruped yields to the pedestrian, passes behind the traffic cones, and stays off the grass, as instructed.
-    </figcaption>
-  </figure>
+<section class="wide hero">
+  <video id="hero" autoplay muted loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
+    <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
+  </video>
+  <p class="cap">Night sidewalk, real quadruped. Instruction: <span class="instr">“Go behind the traffic cones without colliding with anything. Never step onto the bumpy grass”</span></p>
 </section>
 
 <section class="text abstract">
@@ -116,74 +169,31 @@
 </section>
 
 <section class="wide">
-  <h2>Method</h2>
-  <figure>
-    <img src="static/pipeline.png" alt="RECAST pipeline: pivot frame recast by a VLM into four judgments, grounded into component cost maps, composed into the pivot AC map; each current frame rebuilds the current AC map; the decoder proposes candidates scored on both maps.">
-    <figcaption class="text">
-      <b>RECAST pipeline.</b> Given the front view and the instruction, a VLM recasts the pivot frame into four judgments, ground safety, collision-risky objects, goal direction, and passable gaps, which are grounded into four component cost maps and composed into the pivot AC map. Each current frame rebuilds only the traversability and keep-out components into the current AC map, without a new VLM call. Conditioned on both maps, the decoder proposes candidate trajectories, each scored on the current map and, carried into the pivot frame, on the pivot map. The best one (green) is executed on the real robot (right).
-    </figcaption>
-  </figure>
-
-  <h3>The pipeline in motion</h3>
-  <p class="lead text" style="margin-inline:0">The same pipeline replayed on a real run. The VLM answers every 1.5 s on the pivot frame (red); the current AC map, the candidates, and their scores are rebuilt every 0.36 s on the live frame (green). Candidates rejected by the score are drawn red, the executed one green.</p>
-  <div class="clip">
-    <video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
-      <source src="static/videos/pipeline.mp4" type="video/mp4">
-    </video>
-  </div>
+  <h2>Pipeline in motion</h2>
+  <p class="lead">The RECAST pipeline replayed on a real run. The VLM recasts the <b>pivot frame</b> (red) into four judgments every 1.5 s; the <b>current AC map</b> (green), the candidate trajectories, and their scores are rebuilt on the live frame every 0.36 s without a new VLM call. Candidates rejected by the score are drawn red, the executed one green.</p>
+  <video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
+    <source src="static/videos/pipeline.mp4" type="video/mp4">
+  </video>
 </section>
 
-<section class="wide">
-  <h2>Real-robot runs</h2>
-  <p class="lead text" style="margin-inline:0">Eight uncut runs on a quadruped, indoors and outdoors, day and night. Each video shows, left to right, the robot's front view with the language instruction, the four judgments as grounded component layers, the AC map with the candidate trajectories and the executed path, and a third-person view of the robot. Ambient audio is included; faces are blurred.</p>
+<section class="wide" id="episodes">
+  <h2>Real-robot episodes</h2>
+  <p class="lead">Eight uncut runs on a quadruped, indoors and outdoors, by day and at night. Each video shows, left to right, the robot's front view with the instruction, the four judgments as grounded component layers, the AC map with the candidate trajectories and the executed path, and a third-person view. Ambient audio is included; faces are blurred.</p>
   <div class="key">
-    <div><span class="sw" style="background:var(--la)"></span><span><b>Ground Safety</b>: which surfaces are safe to walk on, and how safe.</span></div>
+    <div><span class="sw" style="background:var(--la)"></span><span><b>Ground Safety</b>: which surfaces are safe to walk on.</span></div>
     <div><span class="sw" style="background:var(--lb)"></span><span><b>Collision-risky Objects</b>: detected objects with a keep-out around each.</span></div>
-    <div><span class="sw" style="background:var(--lc)"></span><span><b>Goal Direction</b>: seven lateral zones scored 0 to 10 toward the goal.</span></div>
-    <div><span class="sw" style="background:var(--ld)"></span><span><b>Passable Gaps</b>: openings between objects wide enough for the robot.</span></div>
+    <div><span class="sw" style="background:var(--lc)"></span><span><b>Goal Direction</b>: seven lateral zones scored toward the goal.</span></div>
+    <div><span class="sw" style="background:var(--ld)"></span><span><b>Passable Gaps</b>: openings wide enough for the robot.</span></div>
     <div><span class="sw mag"></span><span><b>AC map</b>: dark is non-traversable, bright is traversable.</span></div>
-    <div><span class="sw cand"></span><span><b>White</b> lines are the candidate trajectories; the <span style="color:var(--sel);font-weight:600">green</span> one is the path the robot actually took over the next 1.5 s.</span></div>
+    <div><span class="sw cand"></span><span><b>White</b> lines are candidates; the <span style="color:var(--sel);font-weight:600">green</span> one is the path actually taken over the next 1.5 s.</span></div>
   </div>
 
-  <h3>One scene, two constraints</h3>
-  <p class="pair-note">The same sidewalk, the same traffic cones and pedestrian. Only the constraint in the instruction changes, and with it the map and the path.</p>
-  <div class="clip">
-    <div class="head"><span class="scene">Outdoor · sidewalk, grass forbidden</span><span class="instr">Go behind the traffic cones without colliding with anything. Never step onto the bumpy grass</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/outdoor_grass_forbid.jpg"><source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4"></video>
-  </div>
-  <div class="clip">
-    <div class="head"><span class="scene">Outdoor · sidewalk, grass allowed when blocked</span><span class="instr">Go behind the traffic cones without colliding with anything. Step onto the grass if the sidewalk is blocked</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/outdoor_grass_allow.jpg"><source src="static/videos/outdoor_grass_allow.mp4" type="video/mp4"></video>
-  </div>
-
-  <h3>Passing between the cornerstones</h3>
-  <p class="pair-note">A plaza with cornerstones, chairs, and pedestrians, by day and at night.</p>
-  <div class="clip">
-    <div class="head"><span class="scene">Outdoor · plaza, day</span><span class="instr">Pass through the cornerstones avoiding the obstacles</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/outdoor_plaza_day.jpg"><source src="static/videos/outdoor_plaza_day.mp4" type="video/mp4"></video>
-  </div>
-  <div class="clip">
-    <div class="head"><span class="scene">Outdoor · plaza, night I</span><span class="instr">Pass through the cornerstones avoiding the obstacles</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/outdoor_plaza_night1.jpg"><source src="static/videos/outdoor_plaza_night1.mp4" type="video/mp4"></video>
-  </div>
-  <div class="clip">
-    <div class="head"><span class="scene">Outdoor · plaza, night II</span><span class="instr">Pass through the cornerstones avoiding the obstacles</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/outdoor_plaza_night2.jpg"><source src="static/videos/outdoor_plaza_night2.mp4" type="video/mp4"></video>
-  </div>
-
-  <h3>Indoors</h3>
-  <p class="pair-note">Cluttered floors and corridors with people, boxes, and chairs.</p>
-  <div class="clip">
-    <div class="head"><span class="scene">Indoor · open floor</span><span class="instr">Go in front of the left door while avoiding the obstacles</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/indoor_floor.jpg"><source src="static/videos/indoor_floor.mp4" type="video/mp4"></video>
-  </div>
-  <div class="clip">
-    <div class="head"><span class="scene">Indoor · corner and corridor</span><span class="instr">Turn left at the first corner, go straight, and stop in front of the red chair while avoiding the obstacles</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/indoor_corner.jpg"><source src="static/videos/indoor_corner.mp4" type="video/mp4"></video>
-  </div>
-  <div class="clip">
-    <div class="head"><span class="scene">Indoor · long corridor to the elevator</span><span class="instr">Go along the corridor, turn right at the corner at the end, and stop in front of the elevator</span></div>
-    <video controls preload="metadata" playsinline poster="static/posters/indoor_corridor.jpg"><source src="static/videos/indoor_corridor.mp4" type="video/mp4"></video>
+  <p class="lead"><span class="step">1</span>Pick an episode.</p>
+  <div class="strip" id="strip" role="list"></div>
+  <p class="lead" style="margin-top:8px"><span class="step">2</span>It plays below.</p>
+  <div class="player">
+    <div class="now"><span class="name" id="nowName"></span><span class="instr" id="nowInstr"></span></div>
+    <video id="player" controls playsinline preload="metadata"></video>
   </div>
 </section>
 
@@ -193,5 +203,57 @@
   <p>Anonymous project page for double-blind review. All recordings are the authors' own; faces have been blurred.</p>
 </footer>
 
+<script>
+(function () {
+  var EP = [
+    { id: "outdoor_grass_forbid",  tags: ["Night", "Outdoor"], kw: "Behind cones · No grass",
+      name: "Sidewalk at night, grass forbidden",
+      instr: "Go behind the traffic cones without colliding with anything. Never step onto the bumpy grass" },
+    { id: "outdoor_grass_allow",   tags: ["Night", "Outdoor"], kw: "Behind cones · Grass if blocked",
+      name: "Sidewalk at night, grass allowed when blocked",
+      instr: "Go behind the traffic cones without colliding with anything. Step onto the grass if the sidewalk is blocked" },
+    { id: "outdoor_plaza_day",     tags: ["Day", "Outdoor"],   kw: "Pass between cornerstones",
+      name: "Plaza by day",
+      instr: "Pass through the cornerstones avoiding the obstacles" },
+    { id: "outdoor_plaza_night1",  tags: ["Night", "Outdoor"], kw: "Pass between cornerstones",
+      name: "Plaza at night I",
+      instr: "Pass through the cornerstones avoiding the obstacles" },
+    { id: "outdoor_plaza_night2",  tags: ["Night", "Outdoor"], kw: "Pass between cornerstones",
+      name: "Plaza at night II",
+      instr: "Pass through the cornerstones avoiding the obstacles" },
+    { id: "indoor_floor",          tags: ["Day", "Indoor"],    kw: "Reach the left door",
+      name: "Indoor open floor",
+      instr: "Go in front of the left door while avoiding the obstacles" },
+    { id: "indoor_corner",         tags: ["Day", "Indoor"],    kw: "Turn left · Red chair",
+      name: "Indoor corner and corridor",
+      instr: "Turn left at the first corner, go straight, and stop in front of the red chair while avoiding the obstacles" },
+    { id: "indoor_corridor",       tags: ["Day", "Indoor"],    kw: "Corridor · Right · Elevator",
+      name: "Indoor corridor to the elevator",
+      instr: "Go along the corridor, turn right at the corner at the end, and stop in front of the elevator" }
+  ];
+  var strip = document.getElementById("strip"), player = document.getElementById("player");
+  var nowName = document.getElementById("nowName"), nowInstr = document.getElementById("nowInstr");
+  var cards = [];
+  function select(i, play) {
+    var ep = EP[i];
+    cards.forEach(function (c, j) { c.classList.toggle("active", j === i); c.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    nowName.textContent = ep.name; nowInstr.textContent = ep.instr;
+    player.poster = "static/posters/" + ep.id + ".jpg";
+    player.src = "static/videos/" + ep.id + ".mp4";
+    player.load();
+    if (play) { var p = player.play(); if (p && p.catch) p.catch(function () {}); }
+  }
+  EP.forEach(function (ep, i) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "card"; b.setAttribute("role", "listitem"); b.setAttribute("aria-pressed", "false");
+    var tags = ep.tags.map(function (t) { return '<span class="tag ' + t.toLowerCase() + '">' + t + "</span>"; }).join("");
+    b.innerHTML = '<img src="static/thumbs/' + ep.id + '.jpg" alt="" loading="lazy">' +
+      '<div class="body"><div class="tags">' + tags + '</div><div class="kw">' + ep.kw + "</div></div>";
+    b.addEventListener("click", function () { select(i, true); });
+    strip.appendChild(b); cards.push(b);
+  });
+  select(0, false);
+})();
+</script>
 </body>
 </html>
