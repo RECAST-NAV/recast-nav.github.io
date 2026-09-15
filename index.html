@@ -7,20 +7,15 @@
 <title>RECAST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
 <style>
   :root {
-    --ink: #1b1a24;
-    --muted: #5e5a6e;
-    --line: #dedbe6;
-    --ground: #ffffff;
-    --panel: #f6f5f9;
+    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #ffffff; --panel: #f6f5f9;
     --m0: #000004; --m1: #51127C; --m2: #B73779; --m3: #FCFDBF;
     --magma: linear-gradient(90deg, var(--m0) 0%, var(--m1) 33%, var(--m2) 66%, var(--m3) 100%);
-    --accent: #B73779;
-    --sel: #00b050;
+    --accent: #B73779; --sel: #00b050;
     --la: #ffd653; --lb: #ff9797; --lc: #a6caec; --ld: #74de83;
     --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -29,113 +24,93 @@
   html { color-scheme: light; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ground); color: var(--ink);
-    font-family: var(--sans); font-size: 17px; line-height: 1.6;
-    padding-inline: 20px; padding-block: 0 80px;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--sans); font-size: 18px; line-height: 1.7;
+    padding-inline: 24px; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
   }
   .wide { max-width: 1500px; margin-inline: auto; }
-  .text { max-width: 800px; margin-inline: auto; }
+  .text { max-width: 920px; margin-inline: auto; }
 
   /* ── header ─────────────────────────────────────────── */
-  header { padding-block: 60px 26px; text-align: center; }
+  header { padding-block: 64px 24px; text-align: center; }
   header h1 {
-    font-weight: 700; font-size: clamp(24px, 3.1vw, 42px); line-height: 1.22; margin: 0 auto;
-    letter-spacing: -0.012em; max-width: 30ch; text-wrap: balance;
+    font-weight: 700; font-size: clamp(24px, 3vw, 42px); line-height: 1.25; margin: 0 auto; letter-spacing: -0.012em;
   }
+  header h1 .l2 { display: block; }
   header h1 .grad {
-    letter-spacing: .05em; font-weight: 700;
+    letter-spacing: .05em;
     background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat;
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
-    padding-right: .02em;
   }
-  @media (max-width: 880px) { header h1 .br { display: none; } }
-  header .authors { margin: 20px 0 0; font-size: 19px; font-weight: 500; }
-  header .venue { margin: 4px 0 0; color: var(--muted); font-size: 15.5px; }
-  .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+  header .authors { margin: 22px 0 0; font-size: 21px; font-weight: 500; }
+  .links { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 18px; margin-top: 26px; }
+  .link { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .btn {
-    display: inline-flex; align-items: center; gap: .55em;
-    padding: 11px 22px 11px 18px; border-radius: 999px;
-    background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 16px;
-    border: 2px solid var(--ink); transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    display: inline-flex; align-items: center; gap: .55em; padding: 12px 24px 12px 20px; border-radius: 999px;
+    background: var(--ink); color: #fff; text-decoration: none; font-weight: 600; font-size: 17px; border: 2px solid var(--ink);
+    transition: transform .15s ease, box-shadow .15s ease;
   }
-  .btn i { font-size: 1.25em; line-height: 1; }
+  .btn i { font-size: 1.3em; line-height: 1; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(27,26,36,.22); }
   .btn.alt { background: #fff; color: var(--ink); }
+  .btn.soon { opacity: .55; cursor: default; }
+  .btn.soon:hover { transform: none; box-shadow: none; }
   .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .tbd { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: .08em; }
+
+  /* ── sections ───────────────────────────────────────── */
+  section { padding-block: 60px 0; }
+  h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
+  h2::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 3px; background: var(--magma); margin: 14px 0 22px; }
+  h2 .sub { font-weight: 500; color: var(--muted); font-size: .6em; margin-left: .35em; }
+  p { margin: 0 0 18px; }
+  .abstract p { font-size: 20px; line-height: 1.7; }
+  .lead { color: var(--muted); font-size: 17.5px; margin: 0 0 16px; }
 
   /* ── media ──────────────────────────────────────────── */
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
-  .hero { padding-block: 22px 8px; }
   .hero video { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
-  .hero .cap { color: var(--muted); font-size: 15px; margin: 12px 0 0; text-align: center; }
-  .hero .cap .instr { font-family: var(--mono); font-size: 14px; }
 
-  section { padding-block: 44px 8px; }
-  h2 {
-    font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--muted); margin: 0 0 22px; display: flex; align-items: center; gap: 14px;
-  }
-  h2::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-  p { margin: 0 0 16px; }
-  .abstract p { font-size: 17.5px; line-height: 1.68; }
-  .lead { color: var(--muted); font-size: 16px; margin: 0 0 18px; }
-  .lead b { color: var(--ink); font-weight: 600; }
-
-  /* ── layer key ───────────────────────────────────────── */
-  .key {
-    background: var(--panel); border-radius: 10px; padding: 16px 22px; font-size: 15px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 6px 26px; margin: 0 0 26px;
-  }
-  .key div { display: flex; align-items: flex-start; gap: 10px; }
-  .sw { flex: none; width: 14px; height: 14px; border-radius: 3px; margin-top: 6px; border: 1px solid rgba(0,0,0,.12); }
-  .sw.mag { width: 40px; background: var(--magma); }
-  .sw.cand { background: #fff; border-color: #999; }
+  /* ── legend ─────────────────────────────────────────── */
+  .key { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15.5px; color: var(--muted); margin: 0 0 22px; }
+  .key span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,.12); flex: none; }
+  .sw.mag { width: 36px; background: var(--magma); }
+  .sw.cand { background: #fff; border-color: #888; }
   .sw.sel { background: var(--sel); }
 
   /* ── episode gallery ────────────────────────────────── */
-  .step {
-    display: inline-flex; align-items: center; justify-content: center; flex: none;
-    width: 1.5em; height: 1.5em; border-radius: 50%; margin-right: .5em;
-    background: var(--magma); color: #fff; font-weight: 700; font-size: .85em;
-  }
-  .strip {
-    display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 14px; scrollbar-width: thin;
-    scroll-snap-type: x proximity;
-  }
+  .strip { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 14px; scrollbar-width: thin; scroll-snap-type: x proximity; }
   .card {
-    flex: 0 0 auto; width: 250px; scroll-snap-align: start;
-    border: 2px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden;
-    cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit;
+    flex: 0 0 auto; width: 250px; scroll-snap-align: start; border: 2px solid var(--line); border-radius: 12px; background: #fff;
+    overflow: hidden; cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit;
     transition: border-color .18s, transform .18s, box-shadow .18s;
   }
   .card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
   .card .body { padding: 10px 12px 12px; }
-  .card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
   .tag {
-    font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase;
-    padding: 2px 8px; border-radius: 999px; background: var(--panel); color: var(--muted);
+    display: inline-block; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 999px; margin-bottom: 7px;
   }
   .tag.night { background: #1b1a24; color: #fff; }
   .tag.day { background: #ffd653; color: #1b1a24; }
-  .tag.indoor { background: #e8eef7; color: #2b4a7a; }
-  .tag.outdoor { background: #e3f4e6; color: #1f6b34; }
-  .card .kw { font-weight: 600; font-size: 15.5px; line-height: 1.3; }
+  .tag.indoor { background: #e3ecf9; color: #26497c; }
+  .card .kw { font-weight: 600; font-size: 16px; line-height: 1.3; }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .card.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,55,121,.18); }
   .card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .player { margin-top: 14px; }
-  .player .now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin: 0 0 10px; }
-  .player .now .name { font-weight: 600; font-size: 18px; }
-  .player .now .instr { font-family: var(--mono); font-size: 14.5px; color: var(--muted); }
-  .player .now .instr::before { content: "“"; } .player .now .instr::after { content: "”"; }
+  .player { margin-top: 10px; }
+  .now { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin: 0 0 10px; }
+  .now .name { font-weight: 600; font-size: 19px; }
+  .now .instr { font-family: var(--mono); font-size: 15px; color: var(--muted); }
+  .now .instr::before { content: "“"; } .now .instr::after { content: "”"; }
 
   footer { margin-top: 70px; color: var(--muted); font-size: 14px; text-align: center; }
-  footer p { margin: 4px 0; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .card { transition: none; } }
-  @media (max-width: 700px) {
-    body { font-size: 16px; }
+  @media (max-width: 720px) {
+    body { font-size: 17px; }
     header { padding-block: 40px 20px; }
-    .key { padding: 14px 16px; }
+    header h1 .l2 { display: inline; }
+    .abstract p { font-size: 18px; }
     .card { width: 210px; }
   }
 </style>
@@ -143,54 +118,50 @@
 <body>
 
 <header class="wide">
-  <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<br class="br">into an Actionable Cost Map for Robot Navigation</h1>
+  <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<span class="l2">into an Actionable Cost Map for Robot Navigation</span></h1>
   <p class="authors">Anonymous authors</p>
-  <p class="venue">Under double-blind review</p>
   <nav class="links" aria-label="Links">
-    <a class="btn" href="https://recast-nav.github.io/"><i class="fa-brands fa-github" aria-hidden="true"></i>Code</a>
-    <a class="btn alt" href="https://recast-nav.github.io/"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</a>
+    <div class="link"><a class="btn" href="https://github.com/RECAST-NAV"><i class="fa-brands fa-github" aria-hidden="true"></i>Code</a></div>
+    <div class="link"><span class="btn alt soon" aria-disabled="true"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</span><span class="tbd">TBD</span></div>
   </nav>
 </header>
 
 <main>
 
 <section class="wide hero">
+  <h2>What RECAST Does <span class="sub">Teaser</span></h2>
   <video id="hero" autoplay muted loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
   </video>
-  <p class="cap">Night sidewalk, real quadruped. Instruction: <span class="instr">“Go behind the traffic cones without colliding with anything. Never step onto the bumpy grass”</span></p>
 </section>
 
 <section class="text abstract">
   <h2>Abstract</h2>
-  <p>Robot navigation that is safe and robust across diverse environments requires a high-level understanding of complex surroundings and the ability to carry it through into stable motion. Recent works take two directions, learning-based models trained at scale and VLM-based approaches, but these break down outside their training distribution, or fail to elicit the VLM's spatial reasoning and align the action with it, so neither turns high-level semantics into accurate action.</p>
-  <p>To address these limitations, we present RECAST, a robot navigation framework that recasts the knowledge of a VLM into an Actionable Cost map (AC map) that bears directly on the action. Given the frame, the goal, and any constraint the user states, the VLM decomposes the scene into four judgments of traversability, caution, goal direction, and passable gaps, which expert vision models ground into geometry, putting both the reasoning and where it applies on one cost map. The action is then chosen on that same map, which conditions the decoders and scores every trajectory they propose, so the reasoning and the motion cannot misalign. Rebuilt on every current frame between VLM answers, the map keeps up with a changing scene.</p>
-  <p>RECAST outperforms the strongest baseline by 13.3 points of success in simulation and 31.4 on a real quadruped, with collision rates 9.6 and 14.3 points below it, the lowest of any method. What the VLM judges shapes the map, and the map shapes the path, without retraining.</p>
+  <p>RECAST recasts what a VLM knows into an <b>Actionable Cost map (AC map)</b>. From the frame, the goal, and any constraint the user states, the VLM makes four judgments: traversability, caution, goal direction, and passable gaps. Expert vision models ground them into geometry on one cost map. The decoder is conditioned on that map and every candidate trajectory is scored on it, so reasoning and motion cannot misalign.</p>
+  <p>On a real quadruped, RECAST beats the strongest baseline by 31.4 success points with the lowest collision rate of any method, without retraining.</p>
 </section>
 
 <section class="wide">
-  <h2>Pipeline in motion</h2>
-  <p class="lead">The RECAST pipeline replayed on a real run. The VLM recasts the <b>pivot frame</b> (red) into four judgments every 1.5 s; the <b>current AC map</b> (green), the candidate trajectories, and their scores are rebuilt on the live frame every 0.36 s without a new VLM call. Candidates rejected by the score are drawn red, the executed one green.</p>
+  <h2>RECAST Pipeline</h2>
+  <p class="lead">The VLM recasts the pivot frame (red) every 1.5 s. The current AC map, the candidates, and their scores are rebuilt on the live frame (green) every 0.36 s. Rejected candidates are red, the executed one green.</p>
   <video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
     <source src="static/videos/pipeline.mp4" type="video/mp4">
   </video>
 </section>
 
-<section class="wide" id="episodes">
-  <h2>Real-robot episodes</h2>
-  <p class="lead">Eight uncut runs on a quadruped, indoors and outdoors, by day and at night. Each video shows, left to right, the robot's front view with the instruction, the four judgments as grounded component layers, the AC map with the candidate trajectories and the executed path, and a third-person view. Ambient audio is included; faces are blurred.</p>
+<section class="wide" id="experiments">
+  <h2>Real Robot Experiment</h2>
   <div class="key">
-    <div><span class="sw" style="background:var(--la)"></span><span><b>Ground Safety</b>: which surfaces are safe to walk on.</span></div>
-    <div><span class="sw" style="background:var(--lb)"></span><span><b>Collision-risky Objects</b>: detected objects with a keep-out around each.</span></div>
-    <div><span class="sw" style="background:var(--lc)"></span><span><b>Goal Direction</b>: seven lateral zones scored toward the goal.</span></div>
-    <div><span class="sw" style="background:var(--ld)"></span><span><b>Passable Gaps</b>: openings wide enough for the robot.</span></div>
-    <div><span class="sw mag"></span><span><b>AC map</b>: dark is non-traversable, bright is traversable.</span></div>
-    <div><span class="sw cand"></span><span><b>White</b> lines are candidates; the <span style="color:var(--sel);font-weight:600">green</span> one is the path actually taken over the next 1.5 s.</span></div>
+    <span><i class="sw" style="background:var(--la)"></i>Ground Safety</span>
+    <span><i class="sw" style="background:var(--lb)"></i>Collision-risky Objects</span>
+    <span><i class="sw" style="background:var(--lc)"></i>Goal Direction</span>
+    <span><i class="sw" style="background:var(--ld)"></i>Passable Gaps</span>
+    <span><i class="sw mag"></i>AC map, dark to bright</span>
+    <span><i class="sw cand"></i>Candidates</span>
+    <span><i class="sw sel"></i>Executed path</span>
   </div>
-
-  <p class="lead"><span class="step">1</span>Pick an episode.</p>
+  <p class="lead">Select a video to play it below.</p>
   <div class="strip" id="strip" role="list"></div>
-  <p class="lead" style="margin-top:8px"><span class="step">2</span>It plays below.</p>
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span><span class="instr" id="nowInstr"></span></div>
     <video id="player" controls playsinline preload="metadata"></video>
@@ -199,35 +170,33 @@
 
 </main>
 
-<footer class="wide">
-  <p>Anonymous project page for double-blind review. All recordings are the authors' own; faces have been blurred.</p>
-</footer>
+<footer class="wide">Anonymous project page for double-blind review. Faces in all recordings are blurred.</footer>
 
 <script>
 (function () {
   var EP = [
-    { id: "outdoor_grass_forbid",  tags: ["Night", "Outdoor"], kw: "Behind cones · No grass",
+    { id: "outdoor_grass_forbid",  tag: "Night",  kw: "Behind cones · No grass",
       name: "Sidewalk at night, grass forbidden",
       instr: "Go behind the traffic cones without colliding with anything. Never step onto the bumpy grass" },
-    { id: "outdoor_grass_allow",   tags: ["Night", "Outdoor"], kw: "Behind cones · Grass if blocked",
+    { id: "outdoor_grass_allow",   tag: "Night",  kw: "Behind cones · Grass if blocked",
       name: "Sidewalk at night, grass allowed when blocked",
       instr: "Go behind the traffic cones without colliding with anything. Step onto the grass if the sidewalk is blocked" },
-    { id: "outdoor_plaza_day",     tags: ["Day", "Outdoor"],   kw: "Pass between cornerstones",
-      name: "Plaza by day",
-      instr: "Pass through the cornerstones avoiding the obstacles" },
-    { id: "outdoor_plaza_night1",  tags: ["Night", "Outdoor"], kw: "Pass between cornerstones",
+    { id: "outdoor_plaza_night1",  tag: "Night",  kw: "Pass between cornerstones",
       name: "Plaza at night I",
       instr: "Pass through the cornerstones avoiding the obstacles" },
-    { id: "outdoor_plaza_night2",  tags: ["Night", "Outdoor"], kw: "Pass between cornerstones",
+    { id: "outdoor_plaza_night2",  tag: "Night",  kw: "Pass between cornerstones",
       name: "Plaza at night II",
       instr: "Pass through the cornerstones avoiding the obstacles" },
-    { id: "indoor_floor",          tags: ["Day", "Indoor"],    kw: "Reach the left door",
+    { id: "outdoor_plaza_day",     tag: "Day",    kw: "Pass between cornerstones",
+      name: "Plaza by day",
+      instr: "Pass through the cornerstones avoiding the obstacles" },
+    { id: "indoor_floor",          tag: "Indoor", kw: "Reach the left door",
       name: "Indoor open floor",
       instr: "Go in front of the left door while avoiding the obstacles" },
-    { id: "indoor_corner",         tags: ["Day", "Indoor"],    kw: "Turn left · Red chair",
+    { id: "indoor_corner",         tag: "Indoor", kw: "Turn left · Red chair",
       name: "Indoor corner and corridor",
       instr: "Turn left at the first corner, go straight, and stop in front of the red chair while avoiding the obstacles" },
-    { id: "indoor_corridor",       tags: ["Day", "Indoor"],    kw: "Corridor · Right · Elevator",
+    { id: "indoor_corridor",       tag: "Indoor", kw: "Corridor · Right · Elevator",
       name: "Indoor corridor to the elevator",
       instr: "Go along the corridor, turn right at the corner at the end, and stop in front of the elevator" }
   ];
@@ -246,9 +215,8 @@
   EP.forEach(function (ep, i) {
     var b = document.createElement("button");
     b.type = "button"; b.className = "card"; b.setAttribute("role", "listitem"); b.setAttribute("aria-pressed", "false");
-    var tags = ep.tags.map(function (t) { return '<span class="tag ' + t.toLowerCase() + '">' + t + "</span>"; }).join("");
     b.innerHTML = '<img src="static/thumbs/' + ep.id + '.jpg" alt="" loading="lazy">' +
-      '<div class="body"><div class="tags">' + tags + '</div><div class="kw">' + ep.kw + "</div></div>";
+      '<div class="body"><span class="tag ' + ep.tag.toLowerCase() + '">' + ep.tag + '</span><div class="kw">' + ep.kw + "</div></div>";
     b.addEventListener("click", function () { select(i, true); });
     strip.appendChild(b); cards.push(b);
   });
