@@ -136,7 +136,7 @@
 
 <section class="wide hero">
   <h2>What RECAST Does <span class="sub">Teaser</span></h2>
-  <div class="box"><video id="hero" autoplay muted loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
+  <div class="box"><video id="hero" autoplay loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
   </video></div>
 </section>
@@ -154,7 +154,7 @@
 <section class="wide">
   <h2>RECAST Pipeline</h2>
   <p class="lead">The VLM recasts the pivot frame (red) every 1.5 s. The current AC map, the candidates, and their scores are rebuilt on the live frame (green) every 0.36 s. Rejected candidates are red, the executed one green.</p>
-  <div class="box"><video controls preload="metadata" playsinline poster="static/posters/pipeline.jpg">
+  <div class="box"><video id="pipe" autoplay muted loop playsinline controls preload="auto" poster="static/posters/pipeline.jpg">
     <source src="static/videos/pipeline.mp4" type="video/mp4">
   </video></div>
 </section>
@@ -174,7 +174,7 @@
   <div class="strip" id="strip" role="list"></div>
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span><span class="instr" id="nowInstr"></span></div>
-    <div class="box"><video id="player" controls playsinline preload="metadata"></video></div>
+    <div class="box"><video id="player" autoplay muted loop controls playsinline preload="auto"></video></div>
   </div>
 </section>
 
@@ -230,7 +230,15 @@
     b.addEventListener("click", function () { select(i, true); });
     strip.appendChild(b); cards.push(b);
   });
-  select(0, false);
+  select(0, true);
+  // 첫 영상(teaser)은 소리 켠 채 자동재생을 시도하고, 브라우저가 막으면 음소거로 재생한 뒤 첫 상호작용에서 소리를 켠다.
+  var hero = document.getElementById("hero");
+  function unmuteOnce() { hero.muted = false; var p = hero.play(); if (p && p.catch) p.catch(function () {}); window.removeEventListener("pointerdown", unmuteOnce); window.removeEventListener("keydown", unmuteOnce); }
+  var hp = hero.play();
+  if (hp && hp.catch) hp.catch(function () {
+    hero.muted = true; hero.play().catch(function () {});
+    window.addEventListener("pointerdown", unmuteOnce); window.addEventListener("keydown", unmuteOnce);
+  });
 })();
 </script>
 </body>
