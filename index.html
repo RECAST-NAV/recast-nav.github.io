@@ -90,7 +90,7 @@
 
   /* ── episode gallery ────────────────────────────────── */
   .stripwrap { position: relative; }
-  .strip { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 10px; scroll-snap-type: x proximity; scrollbar-width: none; -ms-overflow-style: none; }
+  .strip { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 10px; scroll-snap-type: x proximity; scroll-padding-inline: 4px; scrollbar-width: none; -ms-overflow-style: none; }
   .strip::-webkit-scrollbar { display: none; }
   .arrow {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 46px; height: 46px; border-radius: 50%;
@@ -241,8 +241,8 @@
   var aL = document.getElementById("arrowL"), aR = document.getElementById("arrowR");
   function arrows() {
     var max = strip.scrollWidth - strip.clientWidth;
-    aL.hidden = strip.scrollLeft <= 2;
-    aR.hidden = strip.scrollLeft >= max - 2;
+    aL.hidden = strip.scrollLeft <= 12;          // 스냅·패딩으로 몇 px 남는 경우도 맨 왼쪽으로 본다
+    aR.hidden = strip.scrollLeft >= max - 12;
   }
   function slide(dir) { strip.scrollBy({ left: dir * Math.round(strip.clientWidth * 0.8), behavior: "smooth" }); }
   aL.addEventListener("click", function () { slide(-1); });
