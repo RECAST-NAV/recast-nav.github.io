@@ -31,7 +31,7 @@
   .text { max-width: 920px; margin-inline: auto; }
 
   /* ── header ─────────────────────────────────────────── */
-  header { padding-block: 110px 0; text-align: center; }
+  header { padding-block: 110px 10px; text-align: center; }
   header h1 {
     font-weight: 700; font-size: clamp(26px, 3.4vw, 48px); line-height: 1.25; margin: 0 auto; letter-spacing: -0.012em;
   }
@@ -41,7 +41,7 @@
     background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat;
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
   }
-  header .authors { margin: 44px 0 0; font-size: 22px; font-weight: 500; }
+  header .authors { margin: 56px 0 0; font-size: 22px; font-weight: 500; }
   .links { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
   .link { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .btn {
@@ -178,10 +178,6 @@
 <header class="wide">
   <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<span class="l2">into an Actionable Cost Map for Robot Navigation</span></h1>
   <p class="authors">Anonymous authors</p>
-  <nav class="links" aria-label="Links">
-    <div class="link"><a class="btn" href="https://github.com/RECAST-NAV"><i class="fa-brands fa-github" aria-hidden="true"></i>Code</a><span class="tbd">TBD</span></div>
-    <div class="link"><span class="btn alt" aria-disabled="true"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</span><span class="tbd">TBD</span></div>
-  </nav>
 </header>
 
 <main>
