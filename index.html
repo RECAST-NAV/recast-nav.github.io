@@ -65,11 +65,12 @@
   h2 .sub { font-weight: 500; color: var(--muted); font-size: .55em; margin-left: .4em; font-family: var(--mono); letter-spacing: .04em; }
   p { margin: 0 0 18px; }
   .abstract p { font-size: 20px; line-height: 1.7; }
-  .points { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  .points li { position: relative; padding-left: 32px; font-size: 19.5px; line-height: 1.65; }
+  .points { list-style: none; margin: 0; padding: 30px 36px 30px 34px; display: grid; gap: 18px; background: #f4effa; border: 1px solid #e3d9f0; border-left: 8px solid #51127C; border-radius: 14px; }
+  .points li { position: relative; padding-left: 32px; font-size: 19.5px; line-height: 1.65; color: #1b1a24; }
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
   .lead { color: var(--ink); font-size: 20px; line-height: 1.6; margin: 0 0 18px; }
+  .lead.teaser { color: #3b0f70; font-size: 21px; font-weight: 500; }
 
   /* ── media ──────────────────────────────────────────── */
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
@@ -102,6 +103,8 @@
   .tag.day { background: #ffd653; color: #1b1a24; }
   .tag.indoor { background: #e3ecf9; color: #26497c; }
   .card .kw { font-weight: 600; font-size: 16.5px; line-height: 1.3; }
+  .c-red { color: #8b0000; } .c-yellow { color: #8a6d00; }
+  .card:hover .c-red { color: #ffb3b3; } .card:hover .c-yellow { color: #ffe27a; }
   .card:hover { border-color: var(--accent); transform: translateY(-2px); background: var(--magma); color: #fff; }
   .card:hover .kw { color: #fff; }
   .card:hover .tag { background: rgba(255,255,255,.92); color: #1b1a24; }
@@ -139,6 +142,7 @@
 
 <section class="wide hero">
   <h2><span class="t">What RECAST Does</span> <span class="sub">1× speed</span></h2>
+  <p class="lead teaser">Told to go behind the traffic cones and never step onto the bumpy grass, the quadruped yields to the pedestrian, threads behind the cones, and keeps to the pavement, all on the AC map recast from the VLM's judgments.</p>
   <div class="box"><video id="hero" autoplay loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
   </video></div>
@@ -179,14 +183,14 @@
 <script>
 (function () {
   var EP = [
-    { id: "outdoor_grass_forbid",  tag: "Night",  kw: "Night sidewalk · stay off the grass" },
-    { id: "outdoor_grass_allow",   tag: "Night",  kw: "Night sidewalk · grass allowed if blocked" },
+    { id: "outdoor_grass_allow",   tag: "Night",  kw: 'Night sidewalk · <span class="c-yellow">grass allowed if blocked</span>' },
     { id: "outdoor_plaza_night1",  tag: "Night",  kw: "Night plaza I · between the cornerstones" },
     { id: "outdoor_plaza_night2",  tag: "Night",  kw: "Night plaza II · between the cornerstones" },
     { id: "outdoor_plaza_day",     tag: "Day",    kw: "Day plaza · cornerstones and pedestrians" },
     { id: "indoor_floor",          tag: "Indoor", kw: "Lobby · reach the left door" },
     { id: "indoor_corner",         tag: "Indoor", kw: "Lounge · turn left to the red chair" },
-    { id: "indoor_corridor",       tag: "Indoor", kw: "Corridor · turn right to the elevator" }
+    { id: "indoor_corridor",       tag: "Indoor", kw: "Corridor · turn right to the elevator" },
+    { id: "outdoor_grass_forbid",  tag: "Night",  kw: 'Night sidewalk · <span class="c-red">stay off the grass</span>' }
   ];
   var strip = document.getElementById("strip"), player = document.getElementById("player");
   var nowName = document.getElementById("nowName");
@@ -194,7 +198,7 @@
   function select(i, play) {
     var ep = EP[i];
     cards.forEach(function (c, j) { c.classList.toggle("active", j === i); c.setAttribute("aria-pressed", j === i ? "true" : "false"); });
-    nowName.textContent = ep.kw;
+    nowName.innerHTML = ep.kw;
     player.poster = "static/posters/" + ep.id + ".jpg";
     player.src = "static/videos/" + ep.id + ".mp4";
     player.load();
