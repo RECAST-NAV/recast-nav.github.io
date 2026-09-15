@@ -79,11 +79,10 @@
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
   .box { width: 100%; background: #fff; border-radius: 8px; border: 1px solid var(--line); overflow: hidden; line-height: 0; }
   .box video { width: 100%; height: auto; border: 0; border-radius: 0; }
-  .box.stretch { aspect-ratio: 3.716 / 1; --ar: 3.716; position: relative; }
-  .box.stretch video { height: 100%; object-fit: fill; }
+  .box.stretch { position: relative; }
   /* 기본 전체화면(영상 요소)에서도 세로 1.2배 유지: contain 으로 그려진 영상을 세로로만 늘린다 */
   video:fullscreen, video:-webkit-full-screen { background: #000; object-fit: contain; }   /* 전체화면 위아래 여백은 검정 */
-  video.stretchv:fullscreen, video.stretchv:-webkit-full-screen { background: #000; object-fit: contain; transform: scaleY(1.2); transform-origin: center center; }
+  video.stretchv:fullscreen, video.stretchv:-webkit-full-screen { background: #000; object-fit: contain; }
   .hero .box { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
 
   /* ── legend ─────────────────────────────────────────── */
@@ -449,13 +448,6 @@
     strip.appendChild(b); cards.push(b);
   });
   select(0, true);
-  // 8개 영상은 세로만 1.2배 늘려 표시 (원본 비율 × 1/1.2)
-  function stretchBox(v) {
-    var b = v.closest(".box");
-    function f() { if (v.videoWidth && v.videoHeight) { var ar = (v.videoWidth / (v.videoHeight * 1.2)).toFixed(4); b.style.aspectRatio = ar; b.style.setProperty("--ar", ar); } }
-    v.addEventListener("loadedmetadata", f); f();
-  }
-  stretchBox(document.getElementById("hero")); stretchBox(player);
   // 목록 좌우 화살표: 그 방향으로 더 스크롤할 수 있을 때만 보인다
   var aL = document.getElementById("arrowL"), aR = document.getElementById("arrowR");
   function arrows() {
