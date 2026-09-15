@@ -31,7 +31,7 @@
   .text { max-width: 920px; margin-inline: auto; }
 
   /* ── header ─────────────────────────────────────────── */
-  header { padding-block: 110px 40px; text-align: center; }
+  header { padding-block: 110px 0; text-align: center; }
   header h1 {
     font-weight: 700; font-size: clamp(26px, 3.4vw, 48px); line-height: 1.25; margin: 0 auto; letter-spacing: -0.012em;
   }
@@ -41,7 +41,7 @@
     background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat;
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
   }
-  header .authors { margin: 30px 0 0; font-size: 22px; font-weight: 500; }
+  header .authors { margin: 44px 0 0; font-size: 22px; font-weight: 500; }
   .links { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
   .link { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .btn {
@@ -59,13 +59,14 @@
 
   /* ── sections ───────────────────────────────────────── */
   section { padding-block: 140px 0; }
+  section.hero { padding-block: 56px 0; }
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
   h2 .t { background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; padding-right: .05em; }
   h2::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 3px; background: var(--magma); margin: 14px 0 22px; }
   h2 .sub { font-weight: 500; color: var(--muted); font-size: .55em; margin-left: .4em; font-family: var(--mono); letter-spacing: .04em; }
   p { margin: 0 0 18px; }
   .abstract p { font-size: 20px; line-height: 1.7; }
-  .points { list-style: none; margin: 0; padding: 30px 36px 30px 34px; display: grid; gap: 18px; background: #f4effa; border: 1px solid #e3d9f0; border-left: 8px solid #51127C; border-radius: 14px; }
+  .points { list-style: none; margin: 0; padding: 30px 36px; display: grid; gap: 18px; background: #f4effa; border: 1px solid #e3d9f0; border-radius: 14px; }
   .points li { position: relative; padding-left: 32px; font-size: 19.5px; line-height: 1.65; color: #000; }
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
@@ -118,9 +119,16 @@
 
   footer { margin-top: 70px; color: var(--muted); font-size: 14px; text-align: center; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .card { transition: none; } }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  img, video { max-width: 100%; }
   @media (max-width: 720px) {
-    body { font-size: 17px; }
-    header { padding-block: 40px 20px; }
+    body { font-size: 17px; padding-inline: 16px; }
+    header { padding-block: 48px 0; }
+    section { padding-block: 72px 0; }
+    .points { padding: 20px 18px; }
+    .points li { font-size: 17px; padding-left: 26px; }
+    .lead, .lead.teaser { font-size: 17px; }
+    .now .name { font-size: 17px; padding: 6px 12px; }
     header h1 .l2 { display: inline; }
     .abstract p { font-size: 18px; }
     .card { width: 210px; }
@@ -185,7 +193,7 @@
   var EP = [
     { id: "outdoor_plaza_night1",  tag: "Night",  kw: "Night plaza I · between the cornerstones" },
     { id: "outdoor_plaza_night2",  tag: "Night",  kw: "Night plaza II · between the cornerstones" },
-    { id: "outdoor_plaza_day",     tag: "Day",    kw: "Day plaza · cornerstones and pedestrians" },
+    { id: "outdoor_plaza_day",     tag: "Day",    kw: "Day plaza · between the cornerstones" },
     { id: "indoor_floor",          tag: "Indoor", kw: "Lobby · reach the left door" },
     { id: "outdoor_grass_allow",   tag: "Night",  kw: 'Night sidewalk · <span class="c-yellow">grass allowed if blocked</span>' },
     { id: "outdoor_grass_forbid",  tag: "Night",  kw: 'Night sidewalk · <span class="c-red">stay off the grass</span>' },
