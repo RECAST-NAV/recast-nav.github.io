@@ -58,7 +58,8 @@
   .tbd { font-family: var(--mono); font-size: 14px; font-weight: 600; color: #1b1a24; letter-spacing: .08em; }
 
   /* ── sections ───────────────────────────────────────── */
-  section { padding-block: 140px 0; }
+  section { padding-block: 70px 0; }
+  .rule-line { height: 2px; border: 0; border-radius: 1px; background: var(--magma); opacity: .9; margin: 70px auto 0; max-width: 1900px; }
   section.hero { padding-block: 84px 0; }
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
   h2 .t { background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; padding-right: .05em; }
@@ -67,10 +68,10 @@
   p { margin: 0 0 18px; }
   .abstract p { font-size: 20px; line-height: 1.7; }
   .points { list-style: none; margin: 0; padding: 30px 36px; display: grid; gap: 18px; background: #f4effa; border: 1px solid #e3d9f0; border-radius: 14px; }
-  .points li { position: relative; padding-left: 32px; font-size: 19.5px; line-height: 1.65; color: #000; }
+  .points li { position: relative; padding-left: 32px; font-size: 20px; font-weight: 500; line-height: 1.65; color: #000; }
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
-  .lead { color: #000; font-size: 20px; line-height: 1.6; margin: 0 0 18px; }
+  .lead { color: #000; font-size: 21px; font-weight: 500; line-height: 1.6; margin: 0 0 18px; }
   .lead.pipe { margin-bottom: 80px; }
   .lead.teaser { color: #000; font-size: 21px; font-weight: 500; margin-bottom: 36px; }
 
@@ -228,6 +229,7 @@
   </video></div>
 </section>
 
+<hr class="rule-line">
 <section class="wide abstract">
   <h2><span class="t">TL;DR</span></h2>
   <ul class="points">
@@ -238,6 +240,7 @@
   </ul>
 </section>
 
+<hr class="rule-line">
 <section class="wide">
   <h2><span class="t">RECAST Pipeline</span></h2>
   <p class="lead pipe">A VLM recasts the pivot frame (red) and the instruction into four judgments, which expert vision models ground into component cost maps and compose into the pivot Cost map. Each current frame (green) rebuilds only the traversability and keep-out components without a new VLM call, and the decoder's candidate trajectories are scored on both maps before the best one is executed.</p>
@@ -246,6 +249,7 @@
   </video></div>
 </section>
 
+<hr class="rule-line">
 <section class="wide" id="experiments">
   <h2><span class="t">Real Robot Experiment</span></h2>
     <p class="lead">Click an episode to watch the run.</p>
@@ -288,6 +292,7 @@
 
 
 
+<hr class="rule-line">
 <section class="wide abl-wide" id="ablation">
   <h2><span class="t">Ablation</span></h2>
   <p class="lead abl-lead">Add one sentence, and RECAST reads the same scene differently and moves differently, with no retraining.</p>
