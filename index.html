@@ -145,6 +145,32 @@
     .abstract p { font-size: 18px; }
     .card { width: 210px; }
   }
+
+  /* ── ablation ─────────────────────────────────────── */
+  .abl { display: grid; grid-template-columns: 250px 1fr; gap: 26px; align-items: start; }
+  .abl-list { display: flex; flex-direction: column; gap: 14px; }
+  .abl-item { border: 2px solid var(--line); border-radius: 12px; background: #fff; padding: 10px; cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color .18s, transform .18s, box-shadow .18s; }
+  .abl-item img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; display: block; }
+  .abl-item .cap { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 14.5px; line-height: 1.3; }
+  .abl-item .cap img { width: 30px; height: 30px; aspect-ratio: 1; border-radius: 0; flex: none; }
+  .abl-item .cap b { font-weight: 600; }
+  .abl-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .abl-item.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,55,121,.18); }
+  .abl-stagewrap { min-width: 0; }
+  .abl-heads { display: grid; grid-template-columns: 1fr 1fr; margin: 0 0 6px; font-weight: 700; font-size: 20px; }
+  .abl-heads span:last-child { padding-left: 2%; }
+  .abl-stage { position: relative; width: 100%; aspect-ratio: 4.1939; overflow: visible; }
+  .abl-stage .el { position: absolute; opacity: 0; transition: opacity .28s ease; }
+  .abl-stage .el.on { opacity: 1; }
+  .abl-stage img.el { object-fit: fill; }
+  .abl-stage .bub { border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; font-weight: 600; color: #000; padding: 0 .5em; box-sizing: border-box; line-height: 1.15; }
+  .abl-stage .zl { background: #fff; border: 1px solid #000; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #000; white-space: nowrap; padding: 0 .25em; box-sizing: border-box; font-family: var(--mono); }
+  .abl-stage .lab { display: flex; align-items: center; justify-content: center; font-weight: 500; color: #000; white-space: nowrap; }
+  .abl-stage svg.el { overflow: visible; }
+  .abl-stage .sep { border-left: 3px dashed #1b1a24; }
+  .abl-stage path.gt { transition: stroke .5s ease; }
+  .abl-stage .tile { border-radius: 4px; }
+  @media (max-width: 900px) { .abl { grid-template-columns: 1fr; } .abl-list { flex-direction: row; overflow-x: auto; } .abl-item { flex: 0 0 220px; } }
 </style>
 </head>
 <body>
@@ -197,6 +223,113 @@
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span></div>
     <div class="box"><video id="player" autoplay muted loop controls playsinline preload="auto"></video></div>
+  </div>
+</section>
+
+<section class="wide" id="ablation">
+  <h2><span class="t">Ablation</span> <span class="sub">basic vs. additional instruction</span></h2>
+  <p class="lead">Same scene, same basic instruction. Pick a case on the left: each additional instruction (A, then B) recasts the four layers and the Cost map, and the chosen path changes with it.</p>
+  <div class="abl">
+    <div class="abl-list" id="ablList">
+      <button class="abl-item" type="button" data-case="c1"><img src="static/ablation/img80.png" alt=""><div class="cap"><img src="static/ablation/img84.png" alt=""><span><b>Straight ahead</b><br>“Keep walking straight ahead”</span></div></button>
+      <button class="abl-item" type="button" data-case="c2"><img src="static/ablation/img11.png" alt=""><div class="cap"><img src="static/ablation/img7.png" alt=""><span><b>Follow the sidewalk</b><br>“Follow the sidewalk without colliding with anything”</span></div></button>
+    </div>
+    <div class="abl-stagewrap">
+      <div class="abl-heads"><span>Additional Instruction A</span><span>Additional Instruction B</span></div>
+      <div class="abl-stage" id="stage-c1" hidden>
+        <div class="stepwrap" data-step="0" style="display:contents"><div class="el bub" style="left:12.846%;top:4.792%;width:26.745%;height:9.730%;background:#FFD653;font-size:17.0px">“ Stay on the paved sidewalk ”</div></div>
+        <div class="stepwrap" data-step="0" style="display:contents"><img class="el" src="static/ablation/img107.png" alt="" style="left:8.362%;top:2.607%;width:3.616%;height:15.167%"></div>
+        <div class="stepwrap" data-step="1" style="display:contents"><img class="el tile" src="static/ablation/img180.png" alt="" style="left:1.703%;top:18.918%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="1" style="display:contents"><img class="el" src="static/ablation/img566.png" alt="" style="left:1.064%;top:16.168%;width:3.896%;height:14.172%"></div>
+        <div class="stepwrap" data-step="2" style="display:contents"><img class="el tile" src="static/ablation/img206.png" alt="" style="left:14.238%;top:18.918%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="2" style="display:contents"><img class="el" src="static/ablation/img565.png" alt="" style="left:22.665%;top:18.853%;width:3.183%;height:10.448%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><img class="el tile" src="static/ablation/img186.png" alt="" style="left:1.773%;top:59.716%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><img class="el" src="static/ablation/img568.png" alt="" style="left:1.785%;top:87.678%;width:2.529%;height:8.123%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:1.720%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z1 1</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:3.369%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z2 3</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:5.062%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z3 8</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:6.647%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z4 9</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:8.324%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z5 1</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:9.982%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z6 0</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:11.604%;top:60.151%;width:1.793%;height:3.096%;font-size:9.0px">Z7 0</div></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><img class="el tile" src="static/ablation/img188.png" alt="" style="left:14.238%;top:59.716%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><img class="el" src="static/ablation/img564.png" alt="" style="left:23.043%;top:84.342%;width:2.997%;height:14.812%"></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><svg class="el" viewBox="2200000 430000 11030000 2630000" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%"><line x1="4285988" y1="2569051" x2="4521519" y2="2480192" stroke="#196B24" stroke-width="40000" stroke-linecap="round"/></svg></div>
+        <div class="stepwrap" data-step="5" style="display:contents"><img class="el tile" src="static/ablation/img192.png" alt="" style="left:27.168%;top:18.918%;width:20.613%;height:68.211%"></div>
+        <div class="stepwrap" data-step="5" style="display:contents"><img class="el" src="static/ablation/img14.png" alt="" style="left:27.196%;top:88.289%;width:20.487%;height:3.305%"></div>
+        <div class="stepwrap" data-step="6" style="display:contents"><svg class="el" viewBox="2200000 430000 11030000 2630000" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 6333335 2632503 C 6315003 2405470 6296672 2178438 6236035 2036014 C 6175399 1893591 6072459 1835774 5969519 1777959" stroke="#fff" stroke-width="57150"/><path d="M 6337571 2615584 C 6278698 2441079 6219824 2266575 6113359 2133317 C 6006894 2000059 5852836 1908047 5698778 1816036" stroke="#fff" stroke-width="57150"/><path d="M 6354488 2615584 C 6404900 2383263 6455313 2150943 6477170 2010634 C 6499027 1870326 6492329 1822028 6485630 1773731" stroke="#fff" stroke-width="57150"/><path d="M 6362948 2598663 C 6475054 2382912 6587160 2167161 6659077 2040249 C 6730994 1913336 6762722 1875263 6794450 1837189" stroke="#fff" stroke-width="57150"/><path d="M 6346032 2615582 C 6501852 2436494 6657672 2257407 6781765 2146006 C 6905857 2034604 6998221 1990890 7090585 1947176" stroke="#fff" stroke-width="57150"/><path class="gt" d="M 6333335 2628272 C 6328399 2383260 6323464 2138248 6316413 1997940 C 6309363 1857631 6300197 1822025 6291031 1786419" stroke="#fff" stroke-width="76200"/></svg></div>
+        <div class="stepwrap" data-step="8" style="display:contents"><div class="el sep" style="left:50.357%;top:1.521%;width:0.181%;height:96.958%"></div></div>
+        <div class="stepwrap" data-step="10" style="display:contents"><div class="el bub" style="left:56.767%;top:6.326%;width:42.618%;height:9.730%;background:#F79863;font-size:17.0px">“Stay far from the construction fence, step onto gravel if needed”</div></div>
+        <div class="stepwrap" data-step="10" style="display:contents"><img class="el" src="static/ablation/img111.png" alt="" style="left:52.697%;top:2.929%;width:3.616%;height:15.167%"></div>
+        <div class="stepwrap" data-step="11" style="display:contents"><img class="el tile" src="static/ablation/img194.png" alt="" style="left:53.491%;top:18.918%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="11" style="display:contents"><img class="el" src="static/ablation/img576.png" alt="" style="left:52.783%;top:16.350%;width:3.896%;height:14.172%"></div>
+        <div class="stepwrap" data-step="12" style="display:contents"><img class="el tile" src="static/ablation/img208.png" alt="" style="left:65.867%;top:18.918%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="12" style="display:contents"><img class="el" src="static/ablation/img574.png" alt="" style="left:74.164%;top:18.823%;width:3.183%;height:10.448%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><img class="el tile" src="static/ablation/img258.png" alt="" style="left:53.412%;top:59.716%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><img class="el" src="static/ablation/img579.png" alt="" style="left:53.479%;top:88.182%;width:2.529%;height:8.123%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:53.324%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z1 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:54.973%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z2 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:56.666%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z3 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:58.251%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z4 4</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:59.928%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z5 8</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:61.586%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z6 8</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:63.260%;top:60.199%;width:1.793%;height:3.096%;font-size:9.0px">Z7 7</div></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><img class="el tile" src="static/ablation/img200.png" alt="" style="left:65.867%;top:59.716%;width:11.524%;height:36.477%"></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><img class="el" src="static/ablation/img577.png" alt="" style="left:74.649%;top:84.446%;width:2.997%;height:14.812%"></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><svg class="el" viewBox="2200000 430000 11030000 2630000" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%"><line x1="10161434" y1="2480193" x2="10678602" y2="2530979" stroke="#196B24" stroke-width="40000" stroke-linecap="round"/></svg></div>
+        <div class="stepwrap" data-step="15" style="display:contents"><img class="el tile" src="static/ablation/img260.png" alt="" style="left:78.529%;top:18.918%;width:20.613%;height:68.211%"></div>
+        <div class="stepwrap" data-step="15" style="display:contents"><img class="el" src="static/ablation/img12.png" alt="" style="left:78.596%;top:88.289%;width:20.487%;height:3.305%"></div>
+        <div class="stepwrap" data-step="16" style="display:contents"><svg class="el" viewBox="2200000 430000 11030000 2630000" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 12003698 2700189 C 12049880 2497129 12096062 2294069 12147532 2141774 C 12199002 1989479 12255760 1887949 12312518 1786419" stroke="#fff" stroke-width="57150"/><path d="M 12020619 2695959 C 12240953 2453415 12461287 2210872 12617108 2078318 C 12772928 1945765 12864235 1923203 12955541 1900641" stroke="#fff" stroke-width="57150"/><path d="M 12016393 2695958 C 12024501 2424154 12032610 2152350 12016393 2002170 C 12000176 1851991 11959634 1823435 11919093 1794880" stroke="#fff" stroke-width="57150"/><path d="M 12037543 2666346 C 11971266 2430853 11904990 2195360 11838714 2048706 C 11772437 1902052 11706160 1844235 11639884 1786420" stroke="#fff" stroke-width="57150"/><path d="M 12024850 2691732 L 11648343 2184082 L 11449514 1913336" stroke="#fff" stroke-width="57150"/><path class="gt" d="M 11999468 2710766 C 12148875 2446712 12298283 2182658 12424758 2040239 C 12551234 1897820 12716624 1854890 12758319 1856253" stroke="#fff" stroke-width="76200"/></svg></div>
+      </div>
+      <div class="abl-stage" id="stage-c2" hidden>
+        <div class="stepwrap" data-step="0" style="display:contents"><div class="el bub" style="left:10.638%;top:5.278%;width:33.268%;height:9.959%;background:#FFE287;font-size:17.0px">“ Step onto the grass if the sidewalk is blocked ”</div></div>
+        <div class="stepwrap" data-step="0" style="display:contents"><img class="el" src="static/ablation/img70.png" alt="" style="left:6.155%;top:1.589%;width:3.616%;height:15.524%"></div>
+        <div class="stepwrap" data-step="1" style="display:contents"><img class="el tile" src="static/ablation/img224.png" alt="" style="left:1.786%;top:18.538%;width:11.524%;height:37.336%"></div>
+        <div class="stepwrap" data-step="1" style="display:contents"><img class="el" src="static/ablation/img40.png" alt="" style="left:1.129%;top:16.029%;width:3.896%;height:14.506%"></div>
+        <div class="stepwrap" data-step="2" style="display:contents"><img class="el tile" src="static/ablation/img504.png" alt="" style="left:14.373%;top:18.575%;width:11.515%;height:37.325%"></div>
+        <div class="stepwrap" data-step="2" style="display:contents"><img class="el" src="static/ablation/img39.png" alt="" style="left:22.706%;top:18.365%;width:3.183%;height:10.695%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><img class="el tile" src="static/ablation/img228.png" alt="" style="left:1.865%;top:60.416%;width:11.524%;height:37.336%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><img class="el" src="static/ablation/img42.png" alt="" style="left:1.944%;top:89.302%;width:2.529%;height:8.315%"></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:1.770%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z1 8</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:3.419%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z2 8</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:5.113%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z3 7</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:6.698%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z4 5</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:8.375%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z5 0</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:10.032%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z6 0</div></div>
+        <div class="stepwrap" data-step="3" style="display:contents"><div class="el zl" style="left:11.706%;top:60.862%;width:1.793%;height:3.169%;font-size:9.0px">Z7 0</div></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><img class="el tile" src="static/ablation/img230.png" alt="" style="left:14.373%;top:60.490%;width:11.524%;height:37.336%"></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><img class="el" src="static/ablation/img38.png" alt="" style="left:23.247%;top:85.922%;width:2.997%;height:15.161%"></div>
+        <div class="stepwrap" data-step="4" style="display:contents"><svg class="el" viewBox="2200000 3190000 11030000 2569450" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%"><line x1="4075416" y1="5293598" x2="4514134" y2="5538136" stroke="#196B24" stroke-width="40000" stroke-linecap="round"/></svg></div>
+        <div class="stepwrap" data-step="5" style="display:contents"><img class="el tile" src="static/ablation/img234.png" alt="" style="left:27.098%;top:18.349%;width:20.613%;height:69.819%"></div>
+        <div class="stepwrap" data-step="5" style="display:contents"><img class="el" src="static/ablation/img8.png" alt="" style="left:27.135%;top:89.995%;width:20.487%;height:3.383%"></div>
+        <div class="stepwrap" data-step="6" style="display:contents"><svg class="el" viewBox="2200000 3190000 11030000 2569450" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 6410905 5440370 C 6308317 5348094 6205729 5255819 6191981 5107225 C 6178231 4958632 6253322 4753721 6328412 4548811" stroke="#fff" stroke-width="57150"/><path d="M 6401386 5411818 C 6401915 5242073 6402444 5072327 6426769 4942242 C 6451094 4812157 6499215 4721732 6547336 4631307" stroke="#fff" stroke-width="57150"/><path d="M 6410907 5421327 C 6483617 5298116 6556327 5174906 6661559 5081837 C 6766790 4988768 6980426 4891997 7042296 4862913" stroke="#fff" stroke-width="57150"/><path d="M 6407733 5437201 C 6318101 5397541 6228469 5357881 6112662 5259524 C 5996854 5161166 5854871 5004112 5712887 4847058" stroke="#fff" stroke-width="57150"/><path d="M 6390523 5454916 C 6488324 5357766 6586125 5260616 6727670 5187233 C 6869215 5113849 7156573 5037546 7239793 5014614" stroke="#fff" stroke-width="57150"/><path class="gt" d="M 6410906 5434023 C 6272595 5357611 6134285 5281200 6090407 5126260 C 6046529 4971321 6097084 4737855 6147639 4504389" stroke="#fff" stroke-width="76200"/></svg></div>
+        <div class="stepwrap" data-step="8" style="display:contents"><div class="el sep" style="left:50.357%;top:1.557%;width:0.181%;height:96.886%"></div></div>
+        <div class="stepwrap" data-step="10" style="display:contents"><div class="el bub" style="left:63.169%;top:4.202%;width:26.745%;height:9.959%;background:#F79863;font-size:17.0px">“ Never step onto the bumpy grass ”</div></div>
+        <div class="stepwrap" data-step="10" style="display:contents"><img class="el" src="static/ablation/img51.png" alt="" style="left:59.211%;top:1.589%;width:3.616%;height:15.524%"></div>
+        <div class="stepwrap" data-step="11" style="display:contents"><img class="el tile" src="static/ablation/img204.png" alt="" style="left:53.261%;top:17.942%;width:11.515%;height:37.325%"></div>
+        <div class="stepwrap" data-step="11" style="display:contents"><img class="el" src="static/ablation/img28.png" alt="" style="left:52.602%;top:15.547%;width:3.896%;height:14.506%"></div>
+        <div class="stepwrap" data-step="12" style="display:contents"><img class="el tile" src="static/ablation/img499.png" alt="" style="left:65.692%;top:17.914%;width:11.515%;height:37.325%"></div>
+        <div class="stepwrap" data-step="12" style="display:contents"><img class="el" src="static/ablation/img27.png" alt="" style="left:74.064%;top:17.718%;width:3.183%;height:10.695%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><img class="el tile" src="static/ablation/img23.png" alt="" style="left:53.213%;top:59.945%;width:11.515%;height:37.325%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><img class="el" src="static/ablation/img30.png" alt="" style="left:53.281%;top:88.553%;width:2.529%;height:8.315%"></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:53.123%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z1 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:54.772%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z2 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:56.465%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z3 1</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:58.050%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z4 1</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:59.727%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z5 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:61.385%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z6 0</div></div>
+        <div class="stepwrap" data-step="13" style="display:contents"><div class="el zl" style="left:63.024%;top:60.640%;width:1.793%;height:3.169%;font-size:9.0px">Z7 0</div></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><img class="el tile" src="static/ablation/img33.png" alt="" style="left:65.709%;top:59.522%;width:11.501%;height:37.325%"></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><img class="el" src="static/ablation/img26.png" alt="" style="left:74.596%;top:84.828%;width:2.997%;height:15.161%"></div>
+        <div class="stepwrap" data-step="14" style="display:contents"><div class="el bub" style="left:66.023%;top:60.520%;width:7.874%;height:6.636%;background:#fff;border:1px solid #000;font-size:9.9px;font-weight:600">No passable gap</div></div>
+        <div class="stepwrap" data-step="15" style="display:contents"><img class="el tile" src="static/ablation/img474.png" alt="" style="left:78.535%;top:18.248%;width:20.691%;height:69.830%"></div>
+        <div class="stepwrap" data-step="15" style="display:contents"><img class="el" src="static/ablation/img2.png" alt="" style="left:78.573%;top:88.966%;width:20.487%;height:3.383%"></div>
+        <div class="stepwrap" data-step="16" style="display:contents"><svg class="el" viewBox="2200000 3190000 11030000 2569450" preserveAspectRatio="none" style="left:0;top:0;width:100%;height:100%" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M 12133209 5442415 C 12100461 5367378 12067714 5292341 12036972 5193785 C 12006229 5095229 11977491 4973154 11948754 4851079" stroke="#fff" stroke-width="57150"/><path d="M 12107653 5440087 C 12080289 5383726 12052925 5327365 12071738 5228103 C 12090551 5128840 12155540 4986676 12220530 4844513" stroke="#fff" stroke-width="57150"/><path d="M 12096559 5440368 C 12139661 5360392 12182763 5280416 12276180 5211417 C 12369597 5142418 12513330 5084397 12657063 5026375" stroke="#fff" stroke-width="57150"/><path d="M 12078748 5442904 C 12037381 5364437 11996014 5285969 11921989 5215195 C 11847964 5144421 11741281 5081339 11634598 5018258" stroke="#fff" stroke-width="57150"/><path d="M 12015187 5458135 C 11966198 5357997 11917209 5257861 11908991 5149041 C 11900774 5040221 11933328 4922718 11965882 4805216" stroke="#fff" stroke-width="57150"/><path d="M 12079070 5437824 C 12105507 5336653 12131944 5235483 12189243 5148198 C 12246542 5060914 12334703 4987516 12422864 4914118" stroke="#fff" stroke-width="57150"/></svg></div>
+        <div class="stepwrap" data-step="17" style="display:contents"><div class="el bub" style="left:79.862%;top:21.776%;width:10.153%;height:25.912%;background:#C00000;color:#fff;font-size:12.5px;padding-top:16.35%">Insufficient actionable space</div></div>
+        <div class="stepwrap" data-step="17" style="display:contents"><img class="el" src="static/ablation/img491.png" alt="" style="left:81.183%;top:20.931%;width:3.594%;height:15.429%"></div>
+        <div class="stepwrap" data-step="17" style="display:contents"><div class="el lab" style="left:84.286%;top:24.368%;width:4.449%;height:10.301%;color:#fff;font-weight:700;font-size:15.9px">Stop</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -257,6 +390,41 @@
     hero.muted = true; hero.play().catch(function () {});
     window.addEventListener("pointerdown", unmuteOnce); window.addEventListener("keydown", unmuteOnce);
   });
+})();
+</script>
+<script id="abl-js">
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll(".abl-item"));
+  var timers = [];
+  function clear() { timers.forEach(clearTimeout); timers = []; }
+  function play(key) {
+    clear();
+    items.forEach(function (b) { b.classList.toggle("active", b.dataset.case === key); });
+    document.querySelectorAll(".abl-stage").forEach(function (s) { s.hidden = (s.id !== "stage-" + key); });
+    var stage = document.getElementById("stage-" + key);
+    stage.querySelectorAll(".el").forEach(function (e) { e.classList.remove("on"); });
+    stage.querySelectorAll("path.gt").forEach(function (p) { p.setAttribute("stroke", "#fff"); });
+    var steps = {};
+    stage.querySelectorAll(".stepwrap").forEach(function (w) { var k = +w.dataset.step; (steps[k] = steps[k] || []).push(w); });
+    var order = Object.keys(steps).map(Number).sort(function (a, b) { return a - b; });
+    var t = 120;
+    order.forEach(function (k) {
+      timers.push(setTimeout(function () {
+        steps[k].forEach(function (w) {
+          w.querySelectorAll(".el").forEach(function (e) { e.classList.add("on"); });
+          if (k % 10 === 7) w.querySelectorAll("path.gt").forEach(function (p) { p.setAttribute("stroke", "#196B24"); });
+        });
+        if (k % 10 === 7) stage.querySelectorAll("path.gt").forEach(function (p) { p.setAttribute("stroke", "#196B24"); });
+      }, t));
+      t += (k % 10 === 6) ? 650 : (k % 10 === 8 ? 300 : 380);
+    });
+  }
+  items.forEach(function (b) { b.addEventListener("click", function () { play(b.dataset.case); }); });
+  var seen = false;
+  var sec = document.getElementById("ablation");
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (en) { if (!seen && en[0].isIntersecting) { seen = true; play("c1"); } }, { threshold: 0.25 }).observe(sec);
+  } else { play("c1"); }
 })();
 </script>
 </body>
