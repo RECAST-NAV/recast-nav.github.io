@@ -71,8 +71,8 @@
   .points li::before { content: ""; position: absolute; left: 4px; top: .62em; width: 12px; height: 12px; border-radius: 50%; background: var(--magma); }
   .points b { font-weight: 700; }
   .lead { color: #000; font-size: 20px; line-height: 1.6; margin: 0 0 18px; }
-  .lead.pipe { margin-bottom: 40px; }
-  .lead.teaser { color: #000; font-size: 21px; font-weight: 500; }
+  .lead.pipe { margin-bottom: 80px; }
+  .lead.teaser { color: #000; font-size: 21px; font-weight: 500; margin-bottom: 36px; }
 
   /* ── media ──────────────────────────────────────────── */
   video { width: 100%; height: auto; display: block; background: #fff; border-radius: 8px; border: 1px solid var(--line); }
@@ -80,10 +80,8 @@
   .box video { width: 100%; height: auto; border: 0; border-radius: 0; }
   .box.stretch { aspect-ratio: 3.716 / 1; --ar: 3.716; position: relative; }
   .box.stretch video { height: 100%; object-fit: fill; }
-  .fsbtn { position: absolute; right: 10px; top: 10px; z-index: 3; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(27,26,36,.65); color: #fff; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .15s; }
-  .box.stretch:hover .fsbtn, .box.stretch:fullscreen .fsbtn { opacity: 1; }
-  .box.stretch:fullscreen { background: #000; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 0; aspect-ratio: auto; }
-  .box.stretch:fullscreen video { width: min(100vw, calc(100vh * var(--ar))); height: min(100vh, calc(100vw / var(--ar))); object-fit: fill; }
+  /* 기본 전체화면(영상 요소)에서도 세로 1.2배 유지: contain 으로 그려진 영상을 세로로만 늘린다 */
+  video.stretchv:fullscreen, video.stretchv:-webkit-full-screen { object-fit: contain; transform: scaleY(1.2); transform-origin: center center; }
   .hero .box { box-shadow: 0 18px 50px rgba(27,26,36,.10); }
 
   /* ── legend ─────────────────────────────────────────── */
@@ -178,7 +176,7 @@
   .abl-item.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(183,55,121,.18); }
   .abl-stagewrap { min-width: 0; align-self: start; }
   .abl-heads { display: grid; grid-template-columns: 50.36% 49.64%; margin: 0 0 2px; font-weight: 700; font-size: 20px; text-align: center; }
-  .abl-lead { margin-bottom: 10px; }
+  .abl-lead { margin-bottom: 24px; }
   .abl-stage { position: relative; width: 100%; aspect-ratio: 3.9113; overflow: visible; }
   .abl-stage .el { position: absolute; opacity: 0; transition: opacity .56s ease; }
   .abl-stage .el.on { opacity: 1; }
@@ -207,7 +205,7 @@
 <section class="wide hero">
   <h2><span class="t">What RECAST Does</span> <span class="sub">1× speed</span></h2>
   <p class="lead teaser">RECAST turns what a VLM reads from the scene and what the user asks into one cost map of ground safety, collision risk, goal direction, and passable gaps, grounded into geometry, and the robot chooses its path on that same map, so reasoning and motion stay strongly aligned.</p>
-  <div class="box stretch"><button class="fsbtn" type="button" aria-label="Fullscreen"><i class="fa-solid fa-expand" aria-hidden="true"></i></button><video id="hero" autoplay loop playsinline controls controlslist="nofullscreen" preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
+  <div class="box stretch"><video id="hero" class="stretchv" autoplay loop playsinline controls preload="auto" poster="static/posters/outdoor_grass_forbid.jpg">
     <source src="static/videos/outdoor_grass_forbid.mp4" type="video/mp4">
   </video></div>
 </section>
@@ -240,7 +238,7 @@
   </div>
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span></div>
-    <div class="box stretch"><button class="fsbtn" type="button" aria-label="Fullscreen"><i class="fa-solid fa-expand" aria-hidden="true"></i></button><video id="player" autoplay muted loop controls controlslist="nofullscreen" playsinline preload="auto"></video></div>
+    <div class="box stretch"><video id="player" class="stretchv" autoplay muted loop controls playsinline preload="auto"></video></div>
   </div>
 </section>
 
@@ -416,11 +414,6 @@
     var b = v.closest(".box");
     function f() { if (v.videoWidth && v.videoHeight) { var ar = (v.videoWidth / (v.videoHeight * 1.2)).toFixed(4); b.style.aspectRatio = ar; b.style.setProperty("--ar", ar); } }
     v.addEventListener("loadedmetadata", f); f();
-    var btn = b.querySelector(".fsbtn");
-    if (btn) btn.addEventListener("click", function () {
-      if (document.fullscreenElement === b) document.exitFullscreen(); else if (b.requestFullscreen) b.requestFullscreen();
-    });
-    v.addEventListener("dblclick", function (ev) { ev.preventDefault(); if (document.fullscreenElement === b) document.exitFullscreen(); else if (b.requestFullscreen) b.requestFullscreen(); });
   }
   stretchBox(document.getElementById("hero")); stretchBox(player);
   // 목록 좌우 화살표: 그 방향으로 더 스크롤할 수 있을 때만 보인다
