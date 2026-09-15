@@ -89,7 +89,18 @@
   .sw.sel { background: var(--sel); }
 
   /* ── episode gallery ────────────────────────────────── */
-  .strip { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 14px; scrollbar-width: thin; scroll-snap-type: x proximity; }
+  .stripwrap { position: relative; }
+  .strip { display: flex; gap: 14px; overflow-x: auto; padding: 6px 4px 10px; scroll-snap-type: x proximity; scrollbar-width: none; -ms-overflow-style: none; }
+  .strip::-webkit-scrollbar { display: none; }
+  .arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 46px; height: 46px; border-radius: 50%;
+    border: 1px solid var(--line); background: rgba(255,255,255,.96); color: var(--ink); cursor: pointer; font-size: 22px; line-height: 1;
+    display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(27,26,36,.18); transition: background .15s, color .15s;
+  }
+  .arrow:hover { background: var(--magma); color: #fff; border-color: transparent; }
+  .arrow.left { left: -12px; } .arrow.right { right: -12px; }
+  .arrow[hidden] { display: none; }
+  .arrow:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   .card {
     flex: 0 0 auto; width: 250px; scroll-snap-align: start; border: 2px solid var(--line); border-radius: 12px; background: #fff;
     overflow: hidden; cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit;
@@ -178,7 +189,11 @@
 <section class="wide" id="experiments">
   <h2><span class="t">Real Robot Experiment</span></h2>
     <p class="lead">Click an episode to watch the run.</p>
-  <div class="strip" id="strip" role="list"></div>
+  <div class="stripwrap">
+    <button class="arrow left" id="arrowL" type="button" aria-label="Scroll episodes left" hidden><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+    <div class="strip" id="strip" role="list"></div>
+    <button class="arrow right" id="arrowR" type="button" aria-label="Scroll episodes right" hidden><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+  </div>
   <div class="player">
     <div class="now"><span class="name" id="nowName"></span></div>
     <div class="box"><video id="player" autoplay muted loop controls playsinline preload="auto"></video></div>
@@ -222,6 +237,18 @@
     strip.appendChild(b); cards.push(b);
   });
   select(0, true);
+  // 목록 좌우 화살표: 그 방향으로 더 스크롤할 수 있을 때만 보인다
+  var aL = document.getElementById("arrowL"), aR = document.getElementById("arrowR");
+  function arrows() {
+    var max = strip.scrollWidth - strip.clientWidth;
+    aL.hidden = strip.scrollLeft <= 2;
+    aR.hidden = strip.scrollLeft >= max - 2;
+  }
+  function slide(dir) { strip.scrollBy({ left: dir * Math.round(strip.clientWidth * 0.8), behavior: "smooth" }); }
+  aL.addEventListener("click", function () { slide(-1); });
+  aR.addEventListener("click", function () { slide(1); });
+  strip.addEventListener("scroll", arrows); window.addEventListener("resize", arrows); window.addEventListener("load", arrows);
+  arrows(); setTimeout(arrows, 300);
   // 첫 영상(teaser)은 소리 켠 채 자동재생을 시도하고, 브라우저가 막으면 음소거로 재생한 뒤 첫 상호작용에서 소리를 켠다.
   var hero = document.getElementById("hero");
   function unmuteOnce() { hero.muted = false; var p = hero.play(); if (p && p.catch) p.catch(function () {}); window.removeEventListener("pointerdown", unmuteOnce); window.removeEventListener("keydown", unmuteOnce); }
