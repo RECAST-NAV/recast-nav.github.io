@@ -23,24 +23,43 @@
   * { box-sizing: border-box; }
   /* ── 배경: 연한 magma 얼룩이 각자 다른 주기로 계속 일렁인다 ── */
   .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .bg b {
+    position: absolute; display: block; filter: blur(80px); will-change: transform; transform: translateZ(0);
+  }
+  .bg b.wh {                                   /* 가로 방향 물결 */
+    left: -100%; top: -25%; width: 300%; height: 150%;
+    background: repeating-linear-gradient(90deg,
+      rgba(81,18,124,.17) 0%, rgba(183,55,121,.17) 8.33%, rgba(254,159,109,.17) 16.66%,
+      rgba(252,253,191,.20) 25%, rgba(81,18,124,.17) 33.33%);
+    animation: sweepH 24s linear infinite;
+  }
+  .bg b.wv {                                   /* 세로 방향 물결 */
+    top: -100%; left: -25%; height: 300%; width: 150%;
+    background: repeating-linear-gradient(180deg,
+      rgba(0,0,4,.06) 0%, rgba(81,18,124,.15) 8.33%, rgba(183,55,121,.15) 16.66%,
+      rgba(254,159,109,.17) 25%, rgba(0,0,4,.06) 33.33%);
+    animation: sweepV 31s linear infinite;
+  }
+  @keyframes sweepH { from { transform: translateX(-33.333%); } to { transform: translateX(0); } }
+  @keyframes sweepV { from { transform: translateY(-33.333%); } to { transform: translateY(0); } }
   .bg i {
     position: absolute; display: block; border-radius: 50%;
     filter: blur(70px); will-change: transform; transform: translateZ(0);
   }
   .bg i:nth-child(1) { width: 62vmax; height: 52vmax; left: -14vmax; top: -16vmax;
-    background: radial-gradient(closest-side, rgba(81,18,124,.34), rgba(81,18,124,0) 100%);
+    background: radial-gradient(closest-side, rgba(81,18,124,.22), rgba(81,18,124,0) 100%);
     animation: drift1 27s ease-in-out infinite; }
   .bg i:nth-child(2) { width: 58vmax; height: 50vmax; right: -16vmax; top: 4vmax;
-    background: radial-gradient(closest-side, rgba(183,55,121,.32), rgba(183,55,121,0) 100%);
+    background: radial-gradient(closest-side, rgba(183,55,121,.21), rgba(183,55,121,0) 100%);
     animation: drift2 34s ease-in-out infinite; }
   .bg i:nth-child(3) { width: 66vmax; height: 54vmax; left: 8vmax; bottom: -20vmax;
-    background: radial-gradient(closest-side, rgba(254,159,109,.30), rgba(254,159,109,0) 100%);
+    background: radial-gradient(closest-side, rgba(254,159,109,.20), rgba(254,159,109,0) 100%);
     animation: drift3 31s ease-in-out infinite; }
   .bg i:nth-child(4) { width: 54vmax; height: 46vmax; right: 2vmax; bottom: -14vmax;
-    background: radial-gradient(closest-side, rgba(252,253,191,.62), rgba(252,253,191,0) 100%);
+    background: radial-gradient(closest-side, rgba(252,253,191,.40), rgba(252,253,191,0) 100%);
     animation: drift4 23s ease-in-out infinite; }
   .bg i:nth-child(5) { width: 40vmax; height: 36vmax; left: 34vmax; top: 26vmax;
-    background: radial-gradient(closest-side, rgba(0,0,4,.10), rgba(0,0,4,0) 100%);
+    background: radial-gradient(closest-side, rgba(0,0,4,.07), rgba(0,0,4,0) 100%);
     animation: drift5 39s ease-in-out infinite; }
   @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); }
     33% { transform: translate(7vmax,5vmax) scale(1.12); } 66% { transform: translate(3vmax,11vmax) scale(.94); } }
@@ -52,7 +71,7 @@
     50% { transform: translate(-11vmax,-9vmax) scale(1.18); } }
   @keyframes drift5 { 0%,100% { transform: translate(0,0) scale(1); }
     35% { transform: translate(-8vmax,6vmax) scale(1.2); } 70% { transform: translate(6vmax,-7vmax) scale(.9); } }
-  @media (prefers-reduced-motion: reduce) { .bg i { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .bg i, .bg b { animation: none !important; } }
   html { color-scheme: light; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ground); color: var(--ink);
@@ -232,7 +251,7 @@
 </head>
 <body>
 
-<div class="bg" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div class="bg" aria-hidden="true"><b class="wh"></b><b class="wv"></b><i></i><i></i><i></i><i></i><i></i></div>
 
 <header class="wide">
   <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<span class="l2">into an Actionable Cost Map for Robot Navigation</span></h1>
