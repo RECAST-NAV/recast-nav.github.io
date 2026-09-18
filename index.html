@@ -24,26 +24,20 @@
   /* ── 배경: 연한 magma 얼룩이 각자 다른 주기로 계속 일렁인다 ── */
   .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
   .bg b {
-    position: absolute; display: block; filter: blur(30px); mix-blend-mode: multiply; will-change: transform; transform: translateZ(0);
+    position: absolute; display: block; filter: blur(55px); will-change: transform; transform: translateZ(0);
   }
   .bg b.wh {                                   /* 가로 방향 물결 */
     left: -100%; top: -25%; width: 300%; height: 150%;
     background: repeating-linear-gradient(90deg,
-      rgba(81,18,124,.42) 0%, rgba(255,255,255,0) 4.2%,
-      rgba(183,55,121,.40) 8.3%, rgba(255,255,255,0) 12.5%,
-      rgba(254,159,109,.38) 16.6%, rgba(255,255,255,0) 20.8%,
-      rgba(252,253,191,.66) 25%, rgba(255,255,255,0) 29.1%,
-      rgba(81,18,124,.42) 33.33%);
+      rgba(81,18,124,.16) 0%, rgba(183,55,121,.26) 5.5%, rgba(254,159,109,.42) 13%,
+      rgba(252,253,191,.72) 20%, rgba(254,159,109,.40) 26.5%, rgba(81,18,124,.16) 33.33%);
     animation: sweepH 9s linear infinite;
   }
   .bg b.wv {                                   /* 세로 방향 물결 */
     top: -100%; left: -25%; height: 300%; width: 150%;
     background: repeating-linear-gradient(180deg,
-      rgba(0,0,4,.16) 0%, rgba(255,255,255,0) 4.2%,
-      rgba(81,18,124,.36) 8.3%, rgba(255,255,255,0) 12.5%,
-      rgba(183,55,121,.34) 16.6%, rgba(255,255,255,0) 20.8%,
-      rgba(254,159,109,.38) 25%, rgba(255,255,255,0) 29.1%,
-      rgba(0,0,4,.16) 33.33%);
+      rgba(0,0,4,.05) 0%, rgba(81,18,124,.14) 5%, rgba(183,55,121,.24) 11.5%,
+      rgba(254,159,109,.42) 19%, rgba(252,253,191,.85) 26%, rgba(0,0,4,.05) 33.33%);
     animation: sweepV 12s linear infinite;
   }
   @keyframes sweepH { from { transform: translateX(-33.333%); } to { transform: translateX(0); } }
@@ -53,19 +47,19 @@
     filter: blur(60px); will-change: transform; transform: translateZ(0);
   }
   .bg i:nth-child(1) { width: 62vmax; height: 52vmax; left: -14vmax; top: -16vmax;
-    background: radial-gradient(closest-side, rgba(81,18,124,.34), rgba(81,18,124,0) 100%);
+    background: radial-gradient(closest-side, rgba(81,18,124,.20), rgba(81,18,124,0) 100%);
     animation: drift1 11s ease-in-out infinite; }
   .bg i:nth-child(2) { width: 58vmax; height: 50vmax; right: -16vmax; top: 4vmax;
-    background: radial-gradient(closest-side, rgba(183,55,121,.33), rgba(183,55,121,0) 100%);
+    background: radial-gradient(closest-side, rgba(183,55,121,.28), rgba(183,55,121,0) 100%);
     animation: drift2 14s ease-in-out infinite; }
   .bg i:nth-child(3) { width: 66vmax; height: 54vmax; left: 8vmax; bottom: -20vmax;
-    background: radial-gradient(closest-side, rgba(254,159,109,.32), rgba(254,159,109,0) 100%);
+    background: radial-gradient(closest-side, rgba(254,159,109,.46), rgba(254,159,109,0) 100%);
     animation: drift3 13s ease-in-out infinite; }
   .bg i:nth-child(4) { width: 54vmax; height: 46vmax; right: 2vmax; bottom: -14vmax;
-    background: radial-gradient(closest-side, rgba(252,253,191,.62), rgba(252,253,191,0) 100%);
+    background: radial-gradient(closest-side, rgba(252,253,191,.85), rgba(252,253,191,0) 100%);
     animation: drift4 10s ease-in-out infinite; }
   .bg i:nth-child(5) { width: 40vmax; height: 36vmax; left: 34vmax; top: 26vmax;
-    background: radial-gradient(closest-side, rgba(0,0,4,.12), rgba(0,0,4,0) 100%);
+    background: radial-gradient(closest-side, rgba(0,0,4,.05), rgba(0,0,4,0) 100%);
     animation: drift5 16s ease-in-out infinite; }
   @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); }
     33% { transform: translate(7vmax,5vmax) scale(1.12); } 66% { transform: translate(3vmax,11vmax) scale(.94); } }
