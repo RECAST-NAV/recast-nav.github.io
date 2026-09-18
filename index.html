@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
 <style>
   :root {
-    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #f5f1f5; --panel: #f6f5f9;
+    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #faf8fa; --panel: #f6f5f9;
     --m0: #000004; --m1: #51127C; --m2: #B73779; --m3: #FCFDBF;
     --magma: linear-gradient(90deg, var(--m0) 0%, var(--m1) 33%, var(--m2) 66%, var(--m3) 100%);
     --accent: #B73779; --sel: #00b050;
@@ -21,9 +21,26 @@
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
+  /* ── 배경: magma 색 얼룩이 화면 크기에 맞춰 늘어나고 스크롤에 따라 천천히 흐른다 ── */
+  body::before {
+    content: ""; position: fixed; inset: -12vmax; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(42vmax 34vmax at 12% calc(8% + var(--sy, 0px) * 0.6), rgba(81,18,124,.15), rgba(81,18,124,0) 65%),
+      radial-gradient(38vmax 30vmax at 88% calc(26% - var(--sy, 0px) * 0.5), rgba(183,55,121,.14), rgba(183,55,121,0) 65%),
+      radial-gradient(46vmax 34vmax at 30% calc(72% + var(--sy, 0px) * 0.35), rgba(254,159,109,.13), rgba(254,159,109,0) 65%),
+      radial-gradient(40vmax 32vmax at 78% calc(92% - var(--sy, 0px) * 0.3), rgba(252,253,191,.30), rgba(252,253,191,0) 65%),
+      radial-gradient(30vmax 26vmax at 50% calc(48% + var(--sy, 0px) * 0.2), rgba(0,0,4,.05), rgba(0,0,4,0) 70%);
+    filter: blur(14px); animation: magmaDrift 48s ease-in-out infinite alternate;
+    transition: transform .25s linear;
+  }
+  @keyframes magmaDrift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(-2.5vmax, 1.8vmax, 0) scale(1.05); }
+  }
+  @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
   html { color-scheme: light; scroll-behavior: smooth; }
   body {
-    margin: 0; background: linear-gradient(176deg, #f7f4f7 0%, #f4eff4 45%, #f8f2ef 100%) fixed, var(--ground); color: var(--ink);
+    margin: 0; background: var(--ground); color: var(--ink);
     font-family: var(--sans); font-size: 18px; line-height: 1.7;
     padding-inline: 0; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
   }
@@ -493,6 +510,14 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (en) { if (!seen && en[0].isIntersecting) { seen = true; play("c1"); } }, { threshold: 0.08 }).observe(sec);
   } else { play("c1"); }
+})();
+</script>
+<script>
+(function () {
+  var r = document.documentElement, t = false;
+  function upd() { r.style.setProperty("--sy", (window.scrollY * 0.06).toFixed(1) + "px"); t = false; }
+  addEventListener("scroll", function () { if (!t) { t = true; requestAnimationFrame(upd); } }, { passive: true });
+  upd();
 })();
 </script>
 </body>
