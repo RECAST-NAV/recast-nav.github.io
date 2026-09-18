@@ -76,7 +76,7 @@
   body {
     margin: 0; background: var(--ground); color: var(--ink);
     font-family: var(--sans); font-size: 18px; line-height: 1.7;
-    padding-inline: 0; padding-block: 0 24px; -webkit-font-smoothing: antialiased;
+    padding-inline: 0; padding-block: 0; -webkit-font-smoothing: antialiased;
   }
   .wide { max-width: 1996px; margin-inline: auto; padding-inline: 48px; }   /* 블록 안쪽 좌우 흰 여백 2배 */
   .text { max-width: 920px; margin-inline: auto; }
@@ -109,9 +109,10 @@
   .tbd { font-family: var(--mono); font-size: 14px; font-weight: 600; color: #1b1a24; letter-spacing: .08em; }
 
   /* ── sections ───────────────────────────────────────── */
-  section { padding-block: 56px 60px; margin-top: 56px; background: #fff; border: 1px solid #ece6ef; border-radius: 22px; box-shadow: 0 8px 28px rgba(60,35,80,.06); }
+  section { padding-block: 56px 44px; margin-top: 56px; background: #fff; border: 1px solid #ece6ef; border-radius: 22px; box-shadow: 0 8px 28px rgba(60,35,80,.06); }
   section.hero { margin-top: 90px; }
   section.wide { width: calc(100% - 36px); }   /* 블록 양옆으로 바탕색이 보이게 */
+  main section:last-of-type { margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 0; }
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
   h2 .t { background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; padding-right: .05em; }
   h2::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 3px; background: var(--magma); margin: 14px 0 22px; }
