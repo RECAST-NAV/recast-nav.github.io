@@ -21,23 +21,38 @@
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
-  /* ── 배경: magma 색 얼룩이 화면 크기에 맞춰 늘어나고 스크롤에 따라 천천히 흐른다 ── */
-  body::before {
-    content: ""; position: fixed; inset: -12vmax; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(42vmax 34vmax at 12% calc(8% + var(--sy, 0px) * 0.6), rgba(81,18,124,.15), rgba(81,18,124,0) 65%),
-      radial-gradient(38vmax 30vmax at 88% calc(26% - var(--sy, 0px) * 0.5), rgba(183,55,121,.14), rgba(183,55,121,0) 65%),
-      radial-gradient(46vmax 34vmax at 30% calc(72% + var(--sy, 0px) * 0.35), rgba(254,159,109,.13), rgba(254,159,109,0) 65%),
-      radial-gradient(40vmax 32vmax at 78% calc(92% - var(--sy, 0px) * 0.3), rgba(252,253,191,.30), rgba(252,253,191,0) 65%),
-      radial-gradient(30vmax 26vmax at 50% calc(48% + var(--sy, 0px) * 0.2), rgba(0,0,4,.05), rgba(0,0,4,0) 70%);
-    filter: blur(14px); animation: magmaDrift 48s ease-in-out infinite alternate;
-    transition: transform .25s linear;
+  /* ── 배경: 연한 magma 얼룩이 각자 다른 주기로 계속 일렁인다 ── */
+  .bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .bg i {
+    position: absolute; display: block; border-radius: 50%;
+    filter: blur(70px); will-change: transform; transform: translateZ(0);
   }
-  @keyframes magmaDrift {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to   { transform: translate3d(-2.5vmax, 1.8vmax, 0) scale(1.05); }
-  }
-  @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+  .bg i:nth-child(1) { width: 62vmax; height: 52vmax; left: -14vmax; top: -16vmax;
+    background: radial-gradient(closest-side, rgba(81,18,124,.34), rgba(81,18,124,0) 100%);
+    animation: drift1 27s ease-in-out infinite; }
+  .bg i:nth-child(2) { width: 58vmax; height: 50vmax; right: -16vmax; top: 4vmax;
+    background: radial-gradient(closest-side, rgba(183,55,121,.32), rgba(183,55,121,0) 100%);
+    animation: drift2 34s ease-in-out infinite; }
+  .bg i:nth-child(3) { width: 66vmax; height: 54vmax; left: 8vmax; bottom: -20vmax;
+    background: radial-gradient(closest-side, rgba(254,159,109,.30), rgba(254,159,109,0) 100%);
+    animation: drift3 31s ease-in-out infinite; }
+  .bg i:nth-child(4) { width: 54vmax; height: 46vmax; right: 2vmax; bottom: -14vmax;
+    background: radial-gradient(closest-side, rgba(252,253,191,.62), rgba(252,253,191,0) 100%);
+    animation: drift4 23s ease-in-out infinite; }
+  .bg i:nth-child(5) { width: 40vmax; height: 36vmax; left: 34vmax; top: 26vmax;
+    background: radial-gradient(closest-side, rgba(0,0,4,.10), rgba(0,0,4,0) 100%);
+    animation: drift5 39s ease-in-out infinite; }
+  @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(7vmax,5vmax) scale(1.12); } 66% { transform: translate(3vmax,11vmax) scale(.94); } }
+  @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); }
+    30% { transform: translate(-9vmax,7vmax) scale(1.09); } 70% { transform: translate(-4vmax,-6vmax) scale(.92); } }
+  @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); }
+    40% { transform: translate(9vmax,-8vmax) scale(1.14); } 75% { transform: translate(-6vmax,-3vmax) scale(.96); } }
+  @keyframes drift4 { 0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-11vmax,-9vmax) scale(1.18); } }
+  @keyframes drift5 { 0%,100% { transform: translate(0,0) scale(1); }
+    35% { transform: translate(-8vmax,6vmax) scale(1.2); } 70% { transform: translate(6vmax,-7vmax) scale(.9); } }
+  @media (prefers-reduced-motion: reduce) { .bg i { animation: none !important; } }
   html { color-scheme: light; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ground); color: var(--ink);
@@ -216,6 +231,8 @@
 </style>
 </head>
 <body>
+
+<div class="bg" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
 
 <header class="wide">
   <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<span class="l2">into an Actionable Cost Map for Robot Navigation</span></h1>
@@ -515,7 +532,8 @@
 <script>
 (function () {
   var r = document.documentElement, t = false;
-  function upd() { r.style.setProperty("--sy", (window.scrollY * 0.06).toFixed(1) + "px"); t = false; }
+  var bg = document.querySelector(".bg");
+  function upd() { if (bg) bg.style.transform = "translateY(" + (window.scrollY * -0.03).toFixed(1) + "px)"; t = false; }
   addEventListener("scroll", function () { if (!t) { t = true; requestAnimationFrame(upd); } }, { passive: true });
   upd();
 })();
