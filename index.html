@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=1600">
 <meta name="robots" content="noindex, nofollow">
 <title>RECAST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
 <style>
   :root {
-    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #ffffff; --panel: #f6f5f9;
+    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #f1eef7; --panel: #f6f5f9;
     --m0: #000004; --m1: #51127C; --m2: #B73779; --m3: #FCFDBF;
     --magma: linear-gradient(90deg, var(--m0) 0%, var(--m1) 33%, var(--m2) 66%, var(--m3) 100%);
     --accent: #B73779; --sel: #00b050;
@@ -25,9 +25,9 @@
   body {
     margin: 0; background: var(--ground); color: var(--ink);
     font-family: var(--sans); font-size: 18px; line-height: 1.7;
-    padding-inline: 24px; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
+    padding-inline: 0; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
   }
-  .wide { max-width: 1900px; margin-inline: auto; }
+  .wide { max-width: 1948px; margin-inline: auto; padding-inline: 24px; }
   .text { max-width: 920px; margin-inline: auto; }
 
   /* ── header ─────────────────────────────────────────── */
@@ -58,9 +58,9 @@
   .tbd { font-family: var(--mono); font-size: 14px; font-weight: 600; color: #1b1a24; letter-spacing: .08em; }
 
   /* ── sections ───────────────────────────────────────── */
-  section { padding-block: 34px 0; }
-  .rule-line { height: 2px; border: 0; border-radius: 1px; background: #000; margin: 134px auto 0; max-width: 1900px; }   /* 검정 구분선: 위 112px, 아래(다음 제목까지) 28px */
-  section.hero { padding-block: 126px 0; }
+  section { padding-block: 56px 60px; margin-top: 56px; background: #fff; border: 1px solid #e3deee; border-radius: 22px; box-shadow: 0 10px 34px rgba(40,20,70,.07); }
+  section.hero { margin-top: 90px; }
+  section.wide { width: calc(100% - 36px); }   /* 블록 양옆으로 바탕색이 보이게 */
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
   h2 .t { background: var(--magma); background-size: 118% 100%; background-repeat: no-repeat; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; display: inline-block; padding-right: .05em; }
   h2::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 3px; background: var(--magma); margin: 14px 0 22px; }
@@ -138,18 +138,6 @@
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .card { transition: none; } }
   html, body { max-width: 100%; overflow-x: hidden; }
   img, video { max-width: 100%; }
-  @media (max-width: 720px) {
-    body { font-size: 17px; padding-inline: 16px; }
-    header { padding-block: 48px 0; }
-    section { padding-block: 72px 0; }
-    .points { padding: 20px 18px; }
-    .points li { font-size: 17px; padding-left: 26px; }
-    .lead, .lead.teaser { font-size: 17px; }
-    .now .name { font-size: 17px; padding: 6px 12px; }
-    header h1 .l2 { display: inline; }
-    .abstract p { font-size: 18px; }
-    .card { width: 210px; }
-  }
 
 
 
@@ -208,7 +196,6 @@
   .abl-stage .sep { border-left: 3px dashed #1b1a24; }
   .abl-stage path.gt { transition: stroke 1s ease; }
   .abl-stage .tile { border-radius: 4px; }
-  @media (max-width: 900px) { .abl { grid-template-columns: 1fr; } .abl-list { flex-direction: row; overflow-x: auto; } .abl-item { flex: 0 0 220px; } }
 </style>
 </head>
 <body>
@@ -228,18 +215,7 @@
   </video></div>
 </section>
 
-<hr class="rule-line">
-<section class="wide abstract">
-  <h2><span class="t">TL;DR</span></h2>
-  <ul class="points">
-    <li><b>Why.</b> Robots in human spaces must read a complex scene and follow what their users ask. Learning-based models trained at scale break down outside their training distribution, and VLM-based approaches fail to elicit the VLM's spatial reasoning and align the action with it, so neither turns high-level semantics into accurate action.</li>
-    <li><b>Actionable Cost map.</b> RECAST turns a VLM's reading of the scene into one cost map the robot acts on directly. From the frame, the goal, and the user's instruction, the VLM judges where the ground is safe to walk, which objects risk a collision, which way leads to the goal, and which gaps are passable.</li>
-    <li><b>Grounded, and refreshed every frame.</b> Expert vision models pin each judgment to where it holds in the image. Between VLM answers the map is rebuilt on every frame, so it keeps up with a moving scene.</li>
-    <li><b>Navigation on the map.</b> The same map conditions the trajectory decoder and scores every candidate path, so what the VLM judges is what the robot does, without retraining.</li>
-  </ul>
-</section>
 
-<hr class="rule-line">
 <section class="wide">
   <h2><span class="t">RECAST Pipeline</span></h2>
   <p class="lead pipe">A VLM recasts the pivot frame (red) and the instruction into four judgments, which expert vision models ground into component cost maps and compose into the pivot Cost map. Each current frame (green) rebuilds only the traversability and keep-out components without a new VLM call, and the decoder's candidate trajectories are scored on both maps before the best one is executed.</p>
@@ -248,7 +224,6 @@
   </video></div>
 </section>
 
-<hr class="rule-line">
 <section class="wide" id="experiments">
   <h2><span class="t">Real Robot Experiment</span></h2>
     <p class="lead">Click an episode to watch the run.</p>
@@ -291,7 +266,6 @@
 
 
 
-<hr class="rule-line">
 <section class="wide abl-wide" id="ablation">
   <h2><span class="t">Ablation</span></h2>
   <p class="lead abl-lead">Add one sentence, and RECAST reads the same scene differently and moves differently, with no retraining.</p>
