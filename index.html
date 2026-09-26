@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=1600">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <link rel="canonical" href="https://recast-nav.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="RECAST">
@@ -522,11 +523,11 @@
   var slow = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.4 : 1;
   // [R,G,B, 알파, 가로주기, 세로주기, 위상, 반지름]  — 가로·세로 주기를 다르게 두어 두 방향으로 흐른다
   var B = [
-    [81, 18, 124, 0.055, 0.088, 0.063, 0.0, 0.78],
-    [183, 55, 121, 0.075, 0.070, 0.099, 1.7, 0.74],
-    [254, 159, 109, 0.105, 0.107, 0.049, 3.1, 0.82],
-    [252, 253, 191, 0.200, 0.058, 0.080, 4.6, 0.76],
-    [255, 214, 83, 0.075, 0.080, 0.112, 2.3, 0.70]
+    [81, 18, 124, 0.026, 0.088, 0.063, 0.0, 0.78],
+    [183, 55, 121, 0.036, 0.070, 0.099, 1.7, 0.74],
+    [254, 159, 109, 0.052, 0.107, 0.049, 3.1, 0.82],
+    [252, 253, 191, 0.105, 0.058, 0.080, 4.6, 0.76],
+    [255, 214, 83, 0.036, 0.080, 0.112, 2.3, 0.70]
   ];
   var base = null;                                  // 항상 깔리는 옅은 바탕 — 흰색으로 빠지지 않게
   function size() {
@@ -534,14 +535,14 @@
     W = 200; Hh = Math.max(60, Math.round(W * h / Math.max(w, 1)));
     c.width = W; c.height = Hh;
     base = g.createLinearGradient(0, 0, W, Hh);
-    base.addColorStop(0.00, "rgba(81,18,124,.055)");
-    base.addColorStop(0.35, "rgba(183,55,121,.060)");
-    base.addColorStop(0.70, "rgba(254,159,109,.075)");
-    base.addColorStop(1.00, "rgba(252,253,191,.150)");
+    base.addColorStop(0.00, "rgba(81,18,124,.026)");
+    base.addColorStop(0.35, "rgba(183,55,121,.030)");
+    base.addColorStop(0.70, "rgba(254,159,109,.038)");
+    base.addColorStop(1.00, "rgba(252,253,191,.075)");
   }
   function frame(ms) {
     var t = ms / 1000 * slow;
-    g.fillStyle = "#fbfafc"; g.fillRect(0, 0, W, Hh);
+    g.fillStyle = "#fdfcfd"; g.fillRect(0, 0, W, Hh);
     g.fillStyle = base; g.fillRect(0, 0, W, Hh);
     for (var i = 0; i < B.length; i++) {
       var b = B[i];
