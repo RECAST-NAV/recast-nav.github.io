@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
 <style>
   :root {
-    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #faf8fa; --panel: #f6f5f9;
+    --ink: #1b1a24; --muted: #5e5a6e; --line: #dedbe6; --ground: #ffffff; --panel: #f6f5f9;
     --m0: #000004; --m1: #51127C; --m2: #B73779; --m3: #FCFDBF;
     --magma: linear-gradient(90deg, var(--m0) 0%, var(--m1) 33%, var(--m2) 66%, var(--m3) 100%);
     --accent: #B73779; --sel: #00b050;
@@ -38,10 +38,6 @@
     --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
-  /* ── 배경: 작은 캔버스에 magma 얼룩을 매 프레임 그려 화면 전체로 늘린다.
-       큰 블러 레이어를 쓰지 않아 모바일에서 깜빡이지 않고, CSS 애니메이션이 아니라
-       기기의 모션 설정과 무관하게 항상 움직인다. ── */
-  .bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; display: block; }
   html { color-scheme: light; scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--ground); color: var(--ink);
@@ -78,7 +74,7 @@
   .tbd { font-family: var(--mono); font-size: 14px; font-weight: 600; color: #1b1a24; letter-spacing: .08em; }
 
   /* ── sections ───────────────────────────────────────── */
-  section { padding-block: 56px 60px; margin-top: 56px; background: #fff; border: 1px solid #ece6ef; border-radius: 22px; box-shadow: 0 8px 28px rgba(60,35,80,.06); }
+  section { padding-block: 56px 60px; margin-top: 56px; background: #fff; border: 2px dashed #1b1a24; border-radius: 22px; }
   section.hero { margin-top: 90px; }
   section.wide { width: calc(100% - 36px); }   /* 블록 양옆으로 바탕색이 보이게 */
   h2 { font-size: clamp(28px, 2.6vw, 40px); font-weight: 700; letter-spacing: -0.012em; line-height: 1.2; margin: 0 0 8px; }
@@ -219,7 +215,6 @@
 </head>
 <body>
 
-<canvas class="bg" id="bgc" aria-hidden="true"></canvas>
 
 <header class="wide">
   <h1><span class="grad">RECAST</span>: Recasting Vision-Language Semantics<span class="l2">into an Actionable Cost Map for Robot Navigation</span></h1>
@@ -512,49 +507,6 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(function (en) { if (!seen && en[0].isIntersecting) { seen = true; play("c1"); } }, { threshold: 0.08 }).observe(sec);
   } else { play("c1"); }
-})();
-</script>
-<script>
-(function () {
-  var c = document.getElementById("bgc"); if (!c || !c.getContext) return;
-  var g = c.getContext("2d"), W = 0, Hh = 0, dpr = 1;
-  var slow = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.4 : 1;
-  // [R,G,B, 알파, 가로주기, 세로주기, 위상, 반지름]  — 가로·세로 주기를 다르게 두어 두 방향으로 흐른다
-  var B = [
-    [81, 18, 124, 0.026, 0.088, 0.063, 0.0, 0.78],
-    [183, 55, 121, 0.036, 0.070, 0.099, 1.7, 0.74],
-    [254, 159, 109, 0.052, 0.107, 0.049, 3.1, 0.82],
-    [252, 253, 191, 0.105, 0.058, 0.080, 4.6, 0.76],
-    [255, 214, 83, 0.036, 0.080, 0.112, 2.3, 0.70]
-  ];
-  var base = null;                                  // 항상 깔리는 옅은 바탕 — 흰색으로 빠지지 않게
-  function size() {
-    var w = c.clientWidth || innerWidth, h = c.clientHeight || innerHeight;
-    W = 200; Hh = Math.max(60, Math.round(W * h / Math.max(w, 1)));
-    c.width = W; c.height = Hh;
-    base = g.createLinearGradient(0, 0, W, Hh);
-    base.addColorStop(0.00, "rgba(81,18,124,.026)");
-    base.addColorStop(0.35, "rgba(183,55,121,.030)");
-    base.addColorStop(0.70, "rgba(254,159,109,.038)");
-    base.addColorStop(1.00, "rgba(252,253,191,.075)");
-  }
-  function frame(ms) {
-    var t = ms / 1000 * slow;
-    g.fillStyle = "#fdfcfd"; g.fillRect(0, 0, W, Hh);
-    g.fillStyle = base; g.fillRect(0, 0, W, Hh);
-    for (var i = 0; i < B.length; i++) {
-      var b = B[i];
-      var x = (0.5 + 0.30 * Math.sin(t * b[4] * 6.283 + b[6])) * W;   /* 화면을 늘 덮도록 이동폭을 줄인다 */
-      var y = (0.5 + 0.30 * Math.cos(t * b[5] * 6.283 + b[6] * 1.3)) * Hh;
-      var r = b[7] * Math.max(W, Hh) * (0.9 + 0.12 * Math.sin(t * 0.35 + i));
-      var gr = g.createRadialGradient(x, y, 0, x, y, r);
-      gr.addColorStop(0, "rgba(" + b[0] + "," + b[1] + "," + b[2] + "," + b[3] + ")");
-      gr.addColorStop(1, "rgba(" + b[0] + "," + b[1] + "," + b[2] + ",0)");
-      g.fillStyle = gr; g.fillRect(0, 0, W, Hh);
-    }
-    requestAnimationFrame(frame);
-  }
-  addEventListener("resize", size); size(); requestAnimationFrame(frame);
 })();
 </script>
 </body>
